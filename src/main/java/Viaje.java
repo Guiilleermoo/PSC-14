@@ -8,7 +8,7 @@ public class Viaje {
     protected int oferta=null; //Porcentaje de descuento
     protected String empresa=null;
     
-    protected Cliente() {
+    protected Viaje() {
     }
 
     public Viaje(String origen, String destino, Date fecha, int duracion, int precio, int oferta, String empresa) {
