@@ -9,7 +9,7 @@ public class Cliente {
     protected Cliente() {
     }
 
-    public Cliente( String dni, String nombre, String gmail, String telefono, String residencia) {
+    public Cliente(String dni, String nombre, String gmail, String telefono, String residencia) {
         this.dni = dni;
         this.nombre = nombre;
         this.gmail = gmail;
