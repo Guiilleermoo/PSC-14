@@ -1,17 +1,19 @@
+import java.time.LocalDate;
+
 public class Viaje {
 
     protected String origen=null;
     protected String destino=null;
-    protected Date fecha=null;
-    protected int duracion=null;
-    protected int precio=null;
-    protected int oferta=null; //Porcentaje de descuento
+    protected LocalDate fecha=LocalDate.now();
+    protected int duracion=0;
+    protected Double precio=0.0;
+    protected int oferta=0; //Porcentaje de descuento
     protected String empresa=null;
     
     protected Viaje() {
     }
 
-    public Viaje(String origen, String destino, Date fecha, int duracion, int precio, int oferta, String empresa) {
+    public Viaje(String origen, String destino, LocalDate fecha, int duracion, Double precio, int oferta, String empresa) {
         this.origen = origen;
         this.destino = destino;
         this.fecha = fecha;
@@ -25,7 +27,7 @@ public class Viaje {
         return origen;
     }
 
-    public setOrigen(String origen) {
+    public void setOrigen(String origen) {
         if(origen!=null && origen!=destino) {
             this.origen = origen;
         } else {
@@ -45,12 +47,12 @@ public class Viaje {
         }
     }
     
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
     
-    public void setFecha(Date fecha) {
-        if(fecha.after(new Date()) || fecha.equals(new Date())) {
+    public void setFecha(LocalDate fecha) {
+        if(fecha.isAfter(LocalDate.now()) || fecha.equals(LocalDate.now())) {
             this.fecha = fecha;
         } else {
             throw new IllegalArgumentException("La fecha no puede ser anterior a la actual");
@@ -62,19 +64,19 @@ public class Viaje {
     }
     
     public void setDuracion(int duracion) {
-        if(duracion>0 && duracion!=null) {
+        if(duracion>0) {
             this.duracion = duracion;
         } else {
             throw new IllegalArgumentException("La duración no puede ser null ni negativa");
         }
     }
 
-    public int getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
-        if(precio>0 && precio!=null) {
+    public void setPrecio(Double precio) {
+        if(precio>0) {
             this.precio = precio;
         } else {
             throw new IllegalArgumentException("El precio no puede ser null ni negativo");
@@ -86,7 +88,7 @@ public class Viaje {
     }
 
     public void setOferta(int oferta) {
-        if(oferta>=0 && oferta<=100 && oferta!=null) {
+        if(oferta>=0 && oferta<=100) {
             this.oferta = oferta;
         } else {
             throw new IllegalArgumentException("La oferta no puede ser null ni negativa ni mayor que 100");
@@ -110,10 +112,10 @@ public class Viaje {
         return "Viaje{" +
                 "origen='" + origen + '\'' +
                 ", destino='" + destino + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", fecha='" + fecha.toString() + '\'' +
                 ", duracion='" + duracion + '\'' +
-                ", precio='" + precio + '€\'' +
-                ", oferta='" + oferta + '%\'' +
+                ", precio='" + precio + "€" + '\'' +
+                ", oferta='" + oferta + "%" + '\'' +
                 ", empresa='" + empresa + '\'' +
                 "}";
     }

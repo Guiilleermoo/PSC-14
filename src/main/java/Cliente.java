@@ -3,7 +3,7 @@ public class Cliente {
     protected String dni=null;
     protected String nombre=null;
     protected String gmail=null;
-    protected int telefono=null;
+    protected String telefono=null;
     protected String residencia=null;
 
     protected Cliente() {
@@ -56,7 +56,7 @@ public class Cliente {
     }
 
     public void setGmail(String gmail) {
-        if(gmail.contains("@") && gmail.contains(".") {
+        if(gmail.contains("@") && gmail.contains(".")) {
             this.gmail = gmail;
         } else {
             throw new IllegalArgumentException("El correo no es válido");
