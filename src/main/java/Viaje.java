@@ -1,19 +1,21 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Viaje {
 
     protected String origen=null;
     protected String destino=null;
-    protected LocalDate fecha=LocalDate.now();
+    protected LocalDateTime fecha=LocalDateTime.now();
     protected int duracion=0;
     protected Double precio=0.0;
     protected int oferta=0; //Porcentaje de descuento
     protected String empresa=null;
+    protected int asientosDisponibles=0;
+    protected int asientosOcupados=0;
     
     protected Viaje() {
     }
 
-    public Viaje(String origen, String destino, LocalDate fecha, int duracion, Double precio, int oferta, String empresa) {
+    public Viaje(String origen, String destino, LocalDateTime fecha, int duracion, Double precio, int oferta, String empresa, int asientosDisponibles, int asientosOcupados) {
         this.origen = origen;
         this.destino = destino;
         this.fecha = fecha;
@@ -21,6 +23,8 @@ public class Viaje {
         this.precio = precio;
         this.oferta = oferta;
         this.empresa = empresa;
+        this.asientosDisponibles = asientosDisponibles;
+        this.asientosOcupados = asientosOcupados;
     }
     
     public String getOrigen() {
@@ -47,12 +51,12 @@ public class Viaje {
         }
     }
     
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
     
-    public void setFecha(LocalDate fecha) {
-        if(fecha.isAfter(LocalDate.now()) || fecha.equals(LocalDate.now())) {
+    public void setFecha(LocalDateTime fecha) {
+        if(fecha.isAfter(LocalDateTime.now()) || fecha.equals(LocalDateTime.now())) {
             this.fecha = fecha;
         } else {
             throw new IllegalArgumentException("La fecha no puede ser anterior a la actual");
@@ -107,6 +111,30 @@ public class Viaje {
         }
     }
 
+    public int getAsientosDisponibles() {
+        return asientosDisponibles;
+    }
+
+    public void setAsientosDisponibles(int asientosDisponibles) {
+        if(asientosDisponibles>=0) {
+            this.asientosDisponibles = asientosDisponibles;
+        } else {
+            throw new IllegalArgumentException("Los asientos disponibles no pueden ser negativos");
+        }
+    }
+
+    public int getAsientosOcupados() {
+        return asientosDisponibles;
+    }
+
+    public void setAsientosOcupados(int asientosOcupados) {
+        if(asientosOcupados>=0) {
+            this.asientosOcupados = asientosOcupados;
+        } else {
+            throw new IllegalArgumentException("Los asientos ocupados no pueden ser negativos");
+        }
+    }
+
     @Override
     public String toString() {
         return "Viaje{" +
@@ -117,6 +145,16 @@ public class Viaje {
                 ", precio='" + precio + "€" + '\'' +
                 ", oferta='" + oferta + "%" + '\'' +
                 ", empresa='" + empresa + '\'' +
+                ", asientosDisponibles='" + asientosDisponibles + '\'' +
+                ", asientosOcupados='" + asientosOcupados + '\'' +
                 "}";
+    }
+
+    public int calcularPrecioFinal() {
+        return (int) (precio - (precio * oferta / 100));
+    }
+
+    public LocalDateTime calcularFechaFin() {
+        return fecha.plusMinutes(duracion);
     }
 }
