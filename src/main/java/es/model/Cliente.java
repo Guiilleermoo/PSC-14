@@ -1,3 +1,14 @@
+package es.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
 
     protected String dni=null;
@@ -6,16 +17,7 @@ public class Cliente {
     protected String telefono=null;
     protected String residencia=null;
 
-    protected Cliente() {
-    }
 
-    public Cliente(String dni, String nombre, String gmail, String telefono, String residencia) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.gmail = gmail;
-        this.telefono = telefono;
-        this.residencia = residencia;
-    }
     public String getDNI() {
         return dni;
     }

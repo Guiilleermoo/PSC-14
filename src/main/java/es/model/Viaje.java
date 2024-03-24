@@ -1,4 +1,16 @@
+package es.model;
 import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class Viaje {
 
@@ -11,21 +23,7 @@ public class Viaje {
     protected String empresa=null;
     protected int asientosDisponibles=0;
     protected int asientosOcupados=0;
-    
-    protected Viaje() {
-    }
 
-    public Viaje(String origen, String destino, LocalDateTime fecha, int duracion, Double precio, int oferta, String empresa, int asientosDisponibles, int asientosOcupados) {
-        this.origen = origen;
-        this.destino = destino;
-        this.fecha = fecha;
-        this.duracion = duracion;
-        this.precio = precio;
-        this.oferta = oferta;
-        this.empresa = empresa;
-        this.asientosDisponibles = asientosDisponibles;
-        this.asientosOcupados = asientosOcupados;
-    }
     
     public String getOrigen() {
         return origen;
