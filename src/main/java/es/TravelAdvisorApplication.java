@@ -14,7 +14,7 @@ public class TravelAdvisorApplication implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
-        System.out.println("Hello World");
+        System.out.println("¡Servidor Iniciado correctamente!");
     }
     
 }
