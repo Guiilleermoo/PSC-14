@@ -1,5 +1,7 @@
 package es.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Trabajador {
-
+    @Id
     protected String dni=null;
     protected String nombre=null;
     protected String gmail=null;

@@ -1,19 +1,29 @@
 package es.model;
 import java.time.LocalDateTime;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Entity
 public class Viaje {
-
+    @Id
+   
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     protected String origen=null;
     protected String destino=null;
     protected LocalDateTime fecha=LocalDateTime.now();
@@ -21,10 +31,11 @@ public class Viaje {
     protected Double precio=0.0;
     protected int oferta=0; //Porcentaje de descuento
     protected String empresa=null;
-    protected int asientosDisponibles=0;
-    protected int asientosOcupados=0;
+    protected int asientosTotales=0;
 
-    
+
+    @OneToMany(mappedBy = "viaje")
+    private List<Reserva> reservas = new ArrayList<>();
     public String getOrigen() {
         return origen;
     }
@@ -109,29 +120,20 @@ public class Viaje {
         }
     }
 
-    public int getAsientosDisponibles() {
-        return asientosDisponibles;
+    public int getAsientosTotales() {
+        return asientosTotales;
     }
 
-    public void setAsientosDisponibles(int asientosDisponibles) {
-        if(asientosDisponibles>=0) {
-            this.asientosDisponibles = asientosDisponibles;
+    public void setAsientosTotales(int asientosTotales) {
+        if(asientosTotales>=0) {
+            this.asientosTotales = asientosTotales;
         } else {
-            throw new IllegalArgumentException("Los asientos disponibles no pueden ser negativos");
+            throw new IllegalArgumentException("Los asientos totales no pueden ser negativos");
         }
     }
 
-    public int getAsientosOcupados() {
-        return asientosDisponibles;
-    }
 
-    public void setAsientosOcupados(int asientosOcupados) {
-        if(asientosOcupados>=0) {
-            this.asientosOcupados = asientosOcupados;
-        } else {
-            throw new IllegalArgumentException("Los asientos ocupados no pueden ser negativos");
-        }
-    }
+    
 
     @Override
     public String toString() {
@@ -143,8 +145,8 @@ public class Viaje {
                 ", precio='" + precio + "€" + '\'' +
                 ", oferta='" + oferta + "%" + '\'' +
                 ", empresa='" + empresa + '\'' +
-                ", asientosDisponibles='" + asientosDisponibles + '\'' +
-                ", asientosOcupados='" + asientosOcupados + '\'' +
+                ", asientosTotales='" + asientosTotales + '\'' +
+               
                 "}";
     }
 
