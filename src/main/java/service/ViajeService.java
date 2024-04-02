@@ -12,39 +12,50 @@ public class ViajeService {
     private ViajeRepository viajeRepository;
     private ClienteRepository clienteRepository;
     private ReservaRepository reservaRepository;
-    public Viaje crearViaje(Viaje viaje) {
-        return viajeRepository.save(viaje);
+    public boolean crearViaje(Viaje viaje) {
+        try {
+            viajeRepository.save(viaje);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void borrarViaje(Integer id) {
-        viajeRepository.deleteById(id);
+    public boolean borrarViaje(Integer id) {
+        Optional<Viaje> viaje = viajeRepository.findById(id);
+        if(viaje.isPresent()) {
+            viajeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
     public boolean reservarViaje(Integer idViaje,Integer idCliente,Integer pasajeros) {
         Viaje viaje = viajeRepository.findById(idViaje).get();
     
-        if(viaje.getAsientosTotales()>=pasajeros) {
+        if(viaje.getAsientosDisponibles()>=pasajeros) {
             Cliente cliente = clienteRepository.findById(idCliente).get();
             Reserva reserva = new Reserva();
             reserva.setCliente(cliente);
             reserva.setViaje(viaje);
             reserva.setNumPlazas(pasajeros);
             cliente.getReservas().add(reserva);
-            viaje.setAsientosTotales(viaje.getAsientosTotales()-pasajeros);
+            viaje.setAsientosDisponibles(viaje.getAsientosDisponibles()-pasajeros);
             reservaRepository.save(reserva);
        
         return true;
         }
         return false;
     }
-    public void cancelarReserva(Integer idReserva) {
+    public boolean cancelarReserva(Integer idReserva, String dniCliente) {
         Optional<Reserva> reserva = reservaRepository.findById(idReserva);
-        
-        if(reserva.isPresent()) {
+    
+        if(reserva.isPresent() && reserva.get().getCliente().getDni().equals(dniCliente)) {
             Reserva reserva2 = reserva.get();
             reserva2.getCliente().getReservas().remove(reserva2);
             reserva2.getViaje().setAsientosTotales(reserva2.getViaje().getAsientosTotales()+reserva2.getNumPlazas());
             reservaRepository.deleteById(idReserva);
+            return true;
         }
-
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 package es.model;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -32,14 +31,24 @@ public class Viaje {
     protected int oferta=0; //Porcentaje de descuento
     protected String empresa=null;
     protected int asientosTotales=0;
-
+    protected int AsientosDisponibles=0;
 
     @OneToMany(mappedBy = "viaje")
     private List<Reserva> reservas = new ArrayList<>();
-    public String getOrigen() {
-        return origen;
-    }
+        public String getOrigen() {
+            return origen;
+        }
+        public int getAsientosDisponibles() {
+        return AsientosDisponibles;
+}
 
+    public void setAsientosDisponibles(int asientosDisponibles) {
+        if(asientosDisponibles >= 0 && asientosDisponibles <= asientosTotales) {
+            this.AsientosDisponibles = asientosDisponibles;
+        } else {
+        throw new IllegalArgumentException("Los asientos disponibles no pueden ser negativos ni superar los asientos totales");
+    }
+}
     public void setOrigen(String origen) {
         if(origen!=null && origen!=destino) {
             this.origen = origen;
