@@ -22,7 +22,7 @@ public class Viaje {
     @Id
    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     protected String origen=null;
     protected String destino=null;
     protected LocalDateTime fecha=LocalDateTime.now();
@@ -141,9 +141,6 @@ public class Viaje {
         }
     }
 
-
-    
-
     @Override
     public String toString() {
         return "Viaje{" +
@@ -155,7 +152,6 @@ public class Viaje {
                 ", oferta='" + oferta + "%" + '\'' +
                 ", empresa='" + empresa + '\'' +
                 ", asientosTotales='" + asientosTotales + '\'' +
-               
                 "}";
     }
 

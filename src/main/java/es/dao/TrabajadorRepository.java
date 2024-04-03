@@ -6,5 +6,5 @@ import es.model.Trabajador;
 
 @Repository
 public interface TrabajadorRepository extends JpaRepository<Trabajador, Integer>{
-    
+    Trabajador findByDni(String dni);
 }

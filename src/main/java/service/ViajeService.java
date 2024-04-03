@@ -1,61 +1,117 @@
 package service;
 
-import java.util.Optional;
+import es.dao.*;
+import es.model.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
 
-import es.dao.ClienteRepository;
-import es.dao.ViajeRepository;
-import es.dao.ReservaRepository;
-import es.model.Viaje;
-import es.model.Cliente;
-import es.model.Reserva;
 public class ViajeService {
+
     private ViajeRepository viajeRepository;
-    private ClienteRepository clienteRepository;
-    private ReservaRepository reservaRepository;
-    public boolean crearViaje(Viaje viaje) {
+
+    public void crearViaje(Viaje viaje) {
         try {
             viajeRepository.save(viaje);
-            return true;
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException(String.format("Error al crear el viaje -> %s", e.getMessage()));
         }
     }
 
-    public boolean borrarViaje(Integer id) {
-        Optional<Viaje> viaje = viajeRepository.findById(id);
-        if(viaje.isPresent()) {
+    public void borrarViaje(Integer id) {
+        try {
             viajeRepository.deleteById(id);
-            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error al borrar el viaje -> %s", e.getMessage()));
         }
-        return false;
     }
-    public boolean reservarViaje(Integer idViaje,Integer idCliente,Integer pasajeros) {
-        Viaje viaje = viajeRepository.findById(idViaje).get();
     
-        if(viaje.getAsientosDisponibles()>=pasajeros) {
-            Cliente cliente = clienteRepository.findById(idCliente).get();
-            Reserva reserva = new Reserva();
-            reserva.setCliente(cliente);
-            reserva.setViaje(viaje);
-            reserva.setNumPlazas(pasajeros);
-            cliente.getReservas().add(reserva);
-            viaje.setAsientosDisponibles(viaje.getAsientosDisponibles()-pasajeros);
-            reservaRepository.save(reserva);
-       
-        return true;
+    public void modificarViaje(Viaje viaje) {
+        try {
+            Viaje viajeDB = viajeRepository.findById(viaje.getId()).orElse(null);
+            if(viajeDB != null) {
+                viajeRepository.save(viaje);
+            } else {
+                throw new RuntimeException("Error al buscar el viaje");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error al modificar el viaje -> %s", e.getMessage()));
         }
-        return false;
     }
-    public boolean cancelarReserva(Integer idReserva, String dniCliente) {
-        Optional<Reserva> reserva = reservaRepository.findById(idReserva);
-    
-        if(reserva.isPresent() && reserva.get().getCliente().getDni().equals(dniCliente)) {
-            Reserva reserva2 = reserva.get();
-            reserva2.getCliente().getReservas().remove(reserva2);
-            reserva2.getViaje().setAsientosTotales(reserva2.getViaje().getAsientosTotales()+reserva2.getNumPlazas());
-            reservaRepository.deleteById(idReserva);
-            return true;
+
+    public List<Viaje> listarViajes() {
+        List<Viaje> viajes = null;
+
+        try {
+            viajes = viajeRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error al listar los viajes -> %s", e.getMessage()));
         }
-        return false;
+        
+        return viajes;
+    }
+
+    public Viaje buscarPorId(Integer id) {
+        try {
+            Viaje viaje = viajeRepository.findById(id).orElse(null);
+            if(viaje != null) {
+                return viaje;
+            } else {
+                throw new RuntimeException("No se encontró el viaje");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error al buscar el viaje -> %s", e.getMessage()));
+        }
+    }
+
+    public List<Viaje> buscarPorDestino(String destino) {
+        List<Viaje> viajes = listarViajes();
+        List<Viaje> viajesDestino = new ArrayList<>();
+
+        for (Viaje viaje : viajes) {
+            if (viaje.getDestino().equals(destino)) {
+                viajesDestino.add(viaje);
+            }
+        }
+
+        return viajesDestino;
+    }
+    
+    public List<Viaje> buscarPorFecha(LocalDateTime fecha) {
+        List<Viaje> viajes = listarViajes();
+        List<Viaje> resultado = new ArrayList<>();
+
+        for (Viaje viaje : viajes) {
+            if (viaje.getFecha().equals(fecha)) {
+                resultado.add(viaje);
+            }
+        }
+
+        return resultado;
+    }
+    
+    public List<Viaje> buscarPorPrecio(double precio) {
+        List<Viaje> viajes = listarViajes();
+        List<Viaje> resultado = new ArrayList<>();
+
+        for (Viaje viaje : viajes) {
+            if (viaje.getPrecio().equals(precio)) {
+                resultado.add(viaje);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List<Viaje> ordenarPorFecha() {
+        List<Viaje> viajes = listarViajes();
+        viajes.sort((v1, v2) -> v1.getFecha().compareTo(v2.getFecha()));
+        return viajes;
+    }  
+
+    public List<Viaje> ordenarPorPrecio() {
+        List<Viaje> viajes = listarViajes();
+        viajes.sort((v1, v2) -> v1.getPrecio().compareTo(v2.getPrecio()));
+        return viajes;
     }
 }
