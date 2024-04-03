@@ -1,4 +1,4 @@
-package service;
+package es.service;
 
 import es.dao.TrabajadorRepository;
 import es.model.Trabajador;
@@ -16,9 +16,9 @@ public class TrabajadorService {
             throw new RuntimeException(String.format("Error al crear el trabajador -> %s", e.getMessage()));
         }
     }
-    public void eliminarTrabajador(int idTrabajador) {
+    public void eliminarTrabajador(String dni) {
         try {
-            trabajadorRepository.deleteById(idTrabajador);
+            trabajadorRepository.deleteById(dni);
         } catch (Exception e) {
             throw new RuntimeException(String.format("Error al borrar el trabajador -> %s", e.getMessage()));
         }
@@ -50,9 +50,9 @@ public class TrabajadorService {
         }
     }
 
-    public Trabajador obtenerTrabajadorPorId(int idTrabajador) {
+    public Trabajador obtenerTrabajadorPorId(String dni) {
         try {
-            Trabajador trabajador = trabajadorRepository.findById(idTrabajador).orElse(null);
+            Trabajador trabajador = trabajadorRepository.findById(dni).orElse(null);
             if(trabajador != null) {
                 return trabajador;
             } else {

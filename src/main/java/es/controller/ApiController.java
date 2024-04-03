@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.model.*;
-import service.*;
+import es.service.*;
 
 @RestController
 public class ApiController {
@@ -23,7 +23,7 @@ public class ApiController {
         return "Hello World";
     }
     @GetMapping("/reservarViaje/{idViaje}/{idCliente}/{numAsientos}")
-	public boolean reservarViaje(@PathVariable Integer idViaje, @PathVariable  Integer idCliente, @PathVariable Integer numAsientos) {
+	public boolean reservarViaje(@PathVariable Integer idViaje, @PathVariable  String idCliente, @PathVariable Integer numAsientos) {
         try {
             reservaService.crearReserva(idViaje, idCliente, numAsientos);
             return true;

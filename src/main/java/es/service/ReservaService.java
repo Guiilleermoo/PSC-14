@@ -1,4 +1,4 @@
-package service;
+package es.service;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ public class ReservaService {
         }
     }
 
-    public void crearReserva(int idViaje, int idCliente, int pasajeros) {
+    public void crearReserva(int idViaje, String dniCliente, int pasajeros) {
         try {
             Viaje viaje = viajeRepository.findById(idViaje).orElse(null);
     
         if(viaje != null && viaje.getAsientosDisponibles()>=pasajeros) {
-            Cliente cliente = clienteRepository.findById(idCliente).orElse(null);
+            Cliente cliente = clienteRepository.findById(dniCliente).orElse(null);
             if(cliente != null) {
                 Reserva reserva = new Reserva();
                 reserva.setCliente(cliente);

@@ -1,4 +1,4 @@
-package service;
+package es.service;
 
 import es.dao.ClienteRepository;
 import es.model.Cliente;
@@ -46,9 +46,9 @@ public class ClienteService {
             throw new RuntimeException(String.format("Error al obtener las reservas -> %s", e.getMessage()));
         }
     }
-    public Cliente obtenerClientePorId(int idCliente) {
+    public Cliente obtenerClientePorId(String dni) {
         try {
-            Cliente cliente = clienteRepository.findById(idCliente).orElse(null);
+            Cliente cliente = clienteRepository.findById(dni).orElse(null);
             if(cliente != null) {
                 return cliente;
             } else {

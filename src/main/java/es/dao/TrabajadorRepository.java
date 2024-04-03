@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.model.Trabajador;
 
 @Repository
-public interface TrabajadorRepository extends JpaRepository<Trabajador, Integer>{
+public interface TrabajadorRepository extends JpaRepository<Trabajador, String>{
     Trabajador findByDni(String dni);
+    
 }

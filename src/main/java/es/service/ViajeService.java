@@ -1,4 +1,4 @@
-package service;
+package es.service;
 
 import es.dao.*;
 import es.model.*;
