@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.model.Viaje;
-import service.ViajeService;
+import es.model.*;
+import service.*;
 
 @RestController
 public class ApiController {
     
     private ViajeService viajeService;
-
+    private ReservaService reservaService;
 
     @RequestMapping("/test")
     public String test() {
@@ -24,30 +24,51 @@ public class ApiController {
     }
     @GetMapping("/reservarViaje/{idViaje}/{idCliente}/{numAsientos}")
 	public boolean reservarViaje(@PathVariable Integer idViaje, @PathVariable  Integer idCliente, @PathVariable Integer numAsientos) {
-
-	    return  viajeService.reservarViaje(idViaje, idCliente, numAsientos);
+        try {
+            reservaService.crearReserva(idViaje, idCliente, numAsientos);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } 
 	}
 
 
     @GetMapping("/borrarViaje/{idOferta}")
 	public boolean borrarViaje(@PathVariable Integer idOferta) {
-	   
-         return   viajeService.borrarViaje(idOferta);
+        try {
+            viajeService.borrarViaje(idOferta);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 	}
 
-    @GetMapping("/anadirViaje/{Origen}/{Destino}/{Fecha}/{Duracion}/{Precio}/{Oferta}/{Empresa}/{AsientosDisponibles}/{AsientosOcupados}")
-	public boolean anadirViaje(@PathVariable String Origen,@PathVariable String Destino,@PathVariable LocalDateTime Fecha,
-    @PathVariable int Duracion,@PathVariable Double Precio,@PathVariable int Oferta,@PathVariable String Empresa,
-    @PathVariable int AsientosDisponibles,@PathVariable int AsientosOcupados) {
-         
-      Viaje viaje = new Viaje();        
-        //sin hacer
-    return viajeService.crearViaje(viaje);
-	      
+    @GetMapping("/anadirViaje/{Origen}/{Destino}/{Fecha}/{Duracion}/{Precio}/{Oferta}/{Empresa}/{AsientosTotales}/{AsientosDisponibles}")
+	public boolean anadirViaje(@PathVariable String Origen, @PathVariable String Destino, @PathVariable LocalDateTime Fecha, @PathVariable int Duracion, @PathVariable Double Precio, @PathVariable int Oferta, @PathVariable String Empresa, @PathVariable int AsientosTotales, @PathVariable int AsientosDisponibles) {
+      try {
+            Viaje viaje = new Viaje();
+
+            viaje.setOrigen(Origen);
+            viaje.setDestino(Destino);
+            viaje.setFecha(Fecha);
+            viaje.setDuracion(Duracion);
+            viaje.setPrecio(Precio);
+            viaje.setOferta(Oferta);
+            viaje.setEmpresa(Empresa);
+            viaje.setAsientosTotales(AsientosTotales);
+            viaje.setAsientosDisponibles(AsientosDisponibles);
+
+            viajeService.crearViaje(viaje);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } 
 	}
  
-    
-    @PostMapping("/editarViaje")
+    @PostMapping("/editarViaje/")
     public boolean editarViaje(@RequestBody Viaje viaje) {
         //sin hacer
         // Aquí puedes realizar la lógica para editar el viaje con los datos proporcionados
@@ -57,9 +78,13 @@ public class ApiController {
     }
     @GetMapping("/cancelarReserva/{idReserva}/{dniCliente}")
 	public boolean cancelarReserva(@PathVariable Integer idReserva, @PathVariable String dniCliente) {
-	    
-	  
-	     return  viajeService.cancelarReserva(idReserva,dniCliente);
+	    try {
+            reservaService.cancelarReserva(idReserva, dniCliente);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 	}
 	 
  
