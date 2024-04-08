@@ -7,5 +7,5 @@ import es.model.Viaje;
 
 @Repository
 public interface ViajeRepository extends JpaRepository<Viaje, Integer> {
-
+    void deleteById(int id);
 }

@@ -8,6 +8,6 @@ import es.model.Cliente;
 import es.service.ClienteService;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, String>{
-    
+    void deleteByDni(String dni);
     
 }
