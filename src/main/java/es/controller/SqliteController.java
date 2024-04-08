@@ -136,7 +136,6 @@ public class SqliteController {
     }
 
     @CrossOrigin("http://127.0.0.1:5500")
-   
     @DeleteMapping("/eliminarCliente")
     public ResponseEntity<String> eliminarCliente(@RequestBody String jsonData) {
         try {
@@ -152,6 +151,7 @@ public class SqliteController {
             return new ResponseEntity<>("Error al eliminar el cliente -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @CrossOrigin("http://127.0.0.1:5500")
     @PostMapping("/crearCliente")
     public ResponseEntity<String>  crearCliente(@RequestBody String jsonData) {
@@ -172,43 +172,103 @@ public class SqliteController {
             throw new RuntimeException(String.format("Error al crear el cliente -> %s", e.getMessage()));
         }
     }
-    //arreglar
+    
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarReserva")
     public ResponseEntity<String> getReserva(@RequestBody String jsonData) {
         try {
             JSONObject data = new JSONObject(jsonData);
             Reserva reserva =reservaRepository.findById(data.getInt("id"));
-             // Convertir la reserva a JSON y devolverla
-             //   String reservaJson = new ObjectMapper().writeValueAsString(reserva);
-                return new ResponseEntity<>( HttpStatus.OK);
+            return new ResponseEntity<>( HttpStatus.OK);
             
          } catch (Exception e) {
             return new ResponseEntity<>("Error al buscar la reserva -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-  /*   @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/eliminarReserva/{id}")
-    public ResponseEntity<String> eliminarReserva(@PathVariable String id) {
-        Reserva reserva = reservaRepository.deleteById(id);
-        
-
-        if (reserva == null) {
+    @CrossOrigin("http://127.0.0.1:5500")
+    @PostMapping("/crearReserva")
+    public ResponseEntity<String> crearReserva(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            Reserva r = new Reserva();
+            r.setId(data.getInt("id"));
+            r.setCliente(clienteRepository.findByDni(data.getString("dniCliente")));   
+            r.setViaje(viajeRepository.findById(data.getInt("idViaje")));
+            r.setNumPlazas(data.getInt("numPlazas"));
+            reservaRepository.save(r);
+            return new ResponseEntity<>( HttpStatus.OK);
             
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            reservaRepository.deleteById(id);
-            reserva = reservaRepository.findById(id).orElse(null);
-            if (reserva == null) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-            }
+         } catch (Exception e) {
+            return new ResponseEntity<>("Error al crear la reserva -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    } 
-    */
+    }
 
+    @CrossOrigin("http://127.0.0.1:5500")
+    @DeleteMapping("/eliminarReserva")
+    public ResponseEntity<String> eliminarReserva(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            Reserva r = reservaRepository.findById(data.getInt("id"));
+            if (r != null) {
+                reservaRepository.delete(r);
+                return new ResponseEntity<>("Reserva ha sido eliminado correctamente", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("No se ha encontrado la reserva", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al eliminar el reserva -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin("http://127.0.0.1:5500")
+    @PostMapping("/crearViaje")
+    public ResponseEntity<String> crearViaje(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            Viaje v = new Viaje();
+            v.setId(data.getInt("id"));
+            v.setOrigen(data.getString("origen"));
+            v.setDestino(data.getString("destino"));
+            v.setFecha(data.getString("fecha"));
+            v.setDuracion(data.getInt("duracion"));
+            v.setPrecio(data.getDouble("precio"));
+            v.setOferta(data.getInt("oferta"));
+            v.setEmpresa(data.getString("empresa"));
+            v.setAsientosTotales(data.getInt("asientosTotales"));
+            v.setAsientosDisponibles(data.getInt("asientosDisponibles"));
+            viajeRepository.save(v);
+            return new ResponseEntity<>( HttpStatus.OK);
+            
+         } catch (Exception e) {
+            return new ResponseEntity<>("Error al crear el viaje -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin("http://127.0.0.1:5500")
+    @PostMapping("/editarViaje")
+    public ResponseEntity<String> editarViaje(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            Viaje v = new Viaje();
+            v.setId(data.getInt("id"));
+            v.setOrigen(data.getString("origen"));
+            v.setDestino(data.getString("destino"));
+            v.setFecha(data.getString("fecha"));
+            v.setDuracion(data.getInt("duracion"));
+            v.setPrecio(data.getDouble("precio"));
+            v.setOferta(data.getInt("oferta"));
+            v.setEmpresa(data.getString("empresa"));
+            v.setAsientosTotales(data.getInt("asientosTotales"));
+            v.setAsientosDisponibles(data.getInt("asientosDisponibles"));
+            viajeRepository.save(v);
+            return new ResponseEntity<>( HttpStatus.OK);
+            
+         } catch (Exception e) {
+            return new ResponseEntity<>("Error al crear el viaje -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     /*EJEMPLO VALDI
      * 
      * @PostMapping("/get-student-credentials")
