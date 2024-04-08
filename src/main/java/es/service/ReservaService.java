@@ -23,7 +23,7 @@ public class ReservaService {
 
     public void crearReserva(int idViaje, String dniCliente, int pasajeros) {
         try {
-            Viaje viaje = viajeRepository.findById(idViaje).orElse(null);
+            Viaje viaje = viajeRepository.findById(idViaje);
     
         if(viaje != null && viaje.getAsientosDisponibles()>=pasajeros) {
             Cliente cliente = clienteRepository.findById(dniCliente).orElse(null);
@@ -72,7 +72,7 @@ public class ReservaService {
         }
     }
 
-    public void actualizarReserva(Reserva reserva) {
+    /*public void actualizarReserva(Reserva reserva) {
         try {
             Reserva reservaDB = reservaRepository.findById(reserva.getIdReserva()).orElse(null);
 
@@ -85,7 +85,7 @@ public class ReservaService {
             throw new RuntimeException(String.format("Error al actualizar la reserva -> %s", e.getMessage()));
         }
     }
-
+*/
     public List<Reserva> obtenerTodasLasReservas() {
         try {
             List<Reserva> reservas = reservaRepository.findAll();

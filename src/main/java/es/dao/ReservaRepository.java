@@ -10,6 +10,7 @@ import es.service.ClienteService;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
-    
+    void deleteById(int id);
+    Reserva findById(int id);
     
 }

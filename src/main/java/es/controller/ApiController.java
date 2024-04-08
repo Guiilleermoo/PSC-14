@@ -46,7 +46,7 @@ public class ApiController {
 	}
 
     @GetMapping("/anadirViaje/{Origen}/{Destino}/{Fecha}/{Duracion}/{Precio}/{Oferta}/{Empresa}/{AsientosTotales}/{AsientosDisponibles}")
-	public boolean anadirViaje(@PathVariable String Origen, @PathVariable String Destino, @PathVariable LocalDateTime Fecha, @PathVariable int Duracion, @PathVariable Double Precio, @PathVariable int Oferta, @PathVariable String Empresa, @PathVariable int AsientosTotales, @PathVariable int AsientosDisponibles) {
+	public boolean anadirViaje(@PathVariable String Origen, @PathVariable String Destino, @PathVariable String Fecha, @PathVariable int Duracion, @PathVariable Double Precio, @PathVariable int Oferta, @PathVariable String Empresa, @PathVariable int AsientosTotales, @PathVariable int AsientosDisponibles) {
       try {
             Viaje viaje = new Viaje();
 

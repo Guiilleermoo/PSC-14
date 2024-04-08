@@ -13,15 +13,14 @@ import lombok.Data;
 @Data
 public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer idReserva;
+    Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "viaje_id")
+    @JoinColumn(name = "viaje")
     private Viaje viaje;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente")
     private Cliente cliente;
     Integer numPlazas=null;
 }

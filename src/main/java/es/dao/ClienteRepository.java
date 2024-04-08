@@ -9,5 +9,6 @@ import es.service.ClienteService;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, String>{
     void deleteByDni(String dni);
+    Cliente findByDni(String dni);
     
 }

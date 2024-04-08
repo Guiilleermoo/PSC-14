@@ -28,7 +28,7 @@ public class ViajeService {
     
     public void modificarViaje(Viaje viaje) {
         try {
-            Viaje viajeDB = viajeRepository.findById(viaje.getId()).orElse(null);
+            Viaje viajeDB = viajeRepository.findById(viaje.getId());
             if(viajeDB != null) {
                 viajeRepository.save(viaje);
             } else {

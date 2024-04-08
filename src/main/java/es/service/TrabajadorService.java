@@ -26,7 +26,7 @@ public class TrabajadorService {
 
     public void actualizarTrabajador(Trabajador trabajador) {
         try {
-            Trabajador trabajadorDB = trabajadorRepository.findByDni(trabajador.getDNI());
+            Trabajador trabajadorDB = trabajadorRepository.findByDni(trabajador.getDni());
 
             if(trabajadorDB != null) {
                 trabajadorRepository.save(trabajador);
