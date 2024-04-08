@@ -22,6 +22,7 @@ public class ApiController {
     public String test() {
         return "Hello World";
     }
+
     @GetMapping("/reservarViaje/{idViaje}/{idCliente}/{numAsientos}")
 	public boolean reservarViaje(@PathVariable Integer idViaje, @PathVariable  String idCliente, @PathVariable Integer numAsientos) {
         try {
@@ -32,7 +33,6 @@ public class ApiController {
             return false;
         } 
 	}
-
 
     @GetMapping("/borrarViaje/{idOferta}")
 	public boolean borrarViaje(@PathVariable Integer idOferta) {
@@ -76,6 +76,7 @@ public class ApiController {
 
         return false; // Devolver un booleano indicando si la operación de edición fue exitosa o no
     }
+
     @GetMapping("/cancelarReserva/{idReserva}/{dniCliente}")
 	public boolean cancelarReserva(@PathVariable Integer idReserva, @PathVariable String dniCliente) {
 	    try {
@@ -86,6 +87,4 @@ public class ApiController {
             return false;
         }
 	}
-	 
- 
 }

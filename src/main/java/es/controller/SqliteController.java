@@ -2,8 +2,6 @@ package es.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.dao.ClienteRepository;
 import es.dao.ReservaRepository;
 import es.dao.TrabajadorRepository;
@@ -27,22 +25,18 @@ public class SqliteController {
     TrabajadorRepository trabajadorRepository;
     ViajeRepository viajeRepository;
 
-    public SqliteController(ClienteRepository clienteRepository,
-    ReservaRepository reservaRepository,
-    TrabajadorRepository trabajadorRepository,
-    ViajeRepository viajeRepository) {
-
+    public SqliteController(ClienteRepository clienteRepository, ReservaRepository reservaRepository, TrabajadorRepository trabajadorRepository, ViajeRepository viajeRepository) {
         this.clienteRepository = clienteRepository;
         this.reservaRepository = reservaRepository;
         this.trabajadorRepository = trabajadorRepository;
-        this.viajeRepository = viajeRepository;
-        
+        this.viajeRepository = viajeRepository; 
     }
+
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarTrabajador/{dni}")
     public ResponseEntity<String> getTrabajador(@PathVariable String dni) {
         Trabajador trabajador = trabajadorRepository.findByDni(dni);
-      
+
         if (trabajador == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
