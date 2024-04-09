@@ -1,14 +1,12 @@
 package es.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -23,6 +21,7 @@ public class Cliente {
     protected String residencia=null;
     
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<Reserva> reservas = new ArrayList<>();
     
 }

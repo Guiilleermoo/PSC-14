@@ -3,6 +3,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,19 +34,18 @@ public class Viaje {
     protected int asientosDisponibles=0;
 
     @OneToMany(mappedBy = "viaje")
+    @JsonIgnore
     private List<Reserva> reservas = new ArrayList<>();
-        public String getOrigen() {
-            return origen;
-        }
-        public int getAsientosDisponibles() {
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public int getAsientosDisponibles() {
         return asientosDisponibles;
-}
-
-
+    }
 
     public int calcularPrecioFinal() {
         return (int) (precio - (precio * oferta / 100));
     }
-
-   
 }
