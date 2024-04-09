@@ -138,29 +138,9 @@ public class SqliteController {
             return new ResponseEntity<>("Error al eliminar el viaje -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    // OPCION 1
+   
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarCliente")
-        public ResponseEntity<String> getCliente(@RequestBody String jsonData) {
-            try {
-                JSONObject data = new JSONObject(jsonData);
-                Cliente c = clienteRepository.findByDni(data.getString("dni"));
-                ObjectMapper om = new ObjectMapper();
-                String clientejson = om.writeValueAsString(c);
-
-                if (c != null) {
-                return new ResponseEntity<>(clientejson, HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-    }
-
-    // OPCION 2
-    @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarCliente2")
         public ResponseEntity<Cliente> getCliente2(@RequestBody String jsonData) {
         try {
             JSONObject data = new JSONObject(jsonData);
@@ -213,26 +193,10 @@ public class SqliteController {
         }
     }
 
-    // OPCION 1
+
+ 
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarReserva")
-    public ResponseEntity<String> getReserva(@RequestBody String jsonData) {
-        try {
-            JSONObject data = new JSONObject(jsonData);
-            Reserva reserva =reservaRepository.findById(data.getInt("id"));
-            ObjectMapper om = new ObjectMapper();
-            String reservaJson = om.writeValueAsString(reserva);
-
-            return new ResponseEntity<>(reservaJson, HttpStatus.OK);
-            
-         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // OPCION 2
-    @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarReserva2")
     public ResponseEntity<Reserva> getReserva2(@RequestBody String jsonData) {
         try {
             JSONObject data = new JSONObject(jsonData);
@@ -296,7 +260,7 @@ public class SqliteController {
             v.setAsientosTotales(data.getInt("asientosTotales"));
             v.setAsientosDisponibles(data.getInt("asientosDisponibles"));
             viajeRepository.save(v);
-            return new ResponseEntity<>( HttpStatus.OK);
+            return new ResponseEntity<>( "Viaje creado correctamente", HttpStatus.OK);
             
          } catch (Exception e) {
             return new ResponseEntity<>("Error al crear el viaje -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -346,55 +310,21 @@ public class SqliteController {
         }
     }
 
-    // OPCION 1
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/viajes")
-    public ResponseEntity<String> getViajes() {
+    public ResponseEntity<List<Viaje>> getViajes2() {
         try {
-            List<Reserva> reservas = reservaRepository.findAll();
-            ObjectMapper om = new ObjectMapper();
-            String reservasJson = om.writeValueAsString(reservas);
-
-            return new ResponseEntity<>(reservasJson, HttpStatus.OK);
+            List<Viaje> viajes = viajeRepository.findAll();
+            return new ResponseEntity<>(viajes, HttpStatus.OK);
             
          } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // OPCION 2
-    @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/viajes2")
-    public ResponseEntity<List<Reserva>> getViajes2() {
-        try {
-            List<Reserva> reservas = reservaRepository.findAll();
-            return new ResponseEntity<>(reservas, HttpStatus.OK);
-            
-         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // OPCION 1
+    
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/viajesCliente")
-    public ResponseEntity<String> getViajesCliente(@RequestBody String jsonData) {
-        try {
-            JSONObject data = new JSONObject(jsonData);
-            List<Reserva> reservas = reservaRepository.findByCliente(clienteRepository.findByDni(data.getString("dni")));
-            ObjectMapper om = new ObjectMapper();
-            String reservasJson = om.writeValueAsString(reservas);
-
-            return new ResponseEntity<>(reservasJson, HttpStatus.OK);
-            
-         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // OPCION 2
-    @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/viajesCliente2")
     public ResponseEntity<List<Reserva>> getViajesCliente2(@RequestBody String jsonData) {
         try {
             JSONObject data = new JSONObject(jsonData);
