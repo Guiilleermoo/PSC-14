@@ -9,7 +9,7 @@ import es.model.Reserva;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
-    void deleteById(int id);
+    Reserva deleteById(int id);
     Reserva findById(int id);
     List<Reserva> findByCliente(Cliente cliente);
 

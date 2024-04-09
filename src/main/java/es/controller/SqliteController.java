@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -196,12 +198,11 @@ public class SqliteController {
 
  
     @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarReserva")
-    public ResponseEntity<Reserva> getReserva2(@RequestBody String jsonData) {
+    @GetMapping("/buscarReserva/{dni}")
+    public ResponseEntity<Viaje> getReserva2(@PathVariable String dni) {
         try {
-            JSONObject data = new JSONObject(jsonData);
-            Reserva reserva =reservaRepository.findById(data.getInt("id"));
-            return new ResponseEntity<>(reserva, HttpStatus.OK);
+           //Reserva reserva =reservaRepository.findByDni(dni);
+            return new ResponseEntity<>(HttpStatus.OK);
             
          } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -209,23 +210,36 @@ public class SqliteController {
     }
 
     @CrossOrigin("http://127.0.0.1:5500")
-    @PostMapping("/crearReserva")
-    public ResponseEntity<String> crearReserva(@RequestBody String jsonData) {
+    @PostMapping("/crearReserva/{idViaje}")
+    public ResponseEntity<String> crearReserva(@PathVariable Integer idViaje, @RequestBody String jsonData) {
         try {
             JSONObject data = new JSONObject(jsonData);
             Reserva r = new Reserva();
-            r.setId(data.getInt("id"));
-            r.setCliente(clienteRepository.findByDni(data.getString("dniCliente")));   
-            r.setViaje(viajeRepository.findById(data.getInt("idViaje")));
-            r.setNumPlazas(data.getInt("numPlazas"));
+            Viaje v = viajeRepository.findById(idViaje).orElse(null);
+            Cliente c = clienteRepository.findByDni(data.getString("dniCliente"));
+            if ( c == null) {
+                return new ResponseEntity<>("No eres cliente debes de registrarte", HttpStatus.NOT_FOUND);
+            }else{
+                r.setCliente(c);  
+            }
+            
+            v.setAsientosDisponibles(v.getAsientosDisponibles()-Integer.parseInt(data.getString("numPlazas"))); 
+            r.setViaje(v);
+            int randomNum = 0;
+            for(int i = 0; i< 10; i++){
+                randomNum = (int)(Math.random() * 1000 + 1);
+            }
+            r.setId(randomNum);
+            r.setNumPlazas(Integer.parseInt(data.getString("numPlazas")));
             reservaRepository.save(r);
-            return new ResponseEntity<>( HttpStatus.OK);
+            return new ResponseEntity<>("Tu reserva se ha registrado correctamente", HttpStatus.OK);
             
          } catch (Exception e) {
             return new ResponseEntity<>("Error al crear la reserva -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    
+    
     @CrossOrigin("http://127.0.0.1:5500")
     @DeleteMapping("/eliminarReserva")
     public ResponseEntity<String> eliminarReserva(@RequestBody String jsonData) {
@@ -268,16 +282,12 @@ public class SqliteController {
     }
 
     @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarViaje")
-        public ResponseEntity<String> getViaje(@RequestBody String jsonData) {
+    @GetMapping("/buscarViaje/{id}")
+        public ResponseEntity<Viaje> getViaje(@PathVariable Integer id) {
+            Viaje v = viajeRepository.findById(id).orElse(null);
             try {
-                JSONObject data = new JSONObject(jsonData);
-                Viaje v = viajeRepository.findByDni(data.getInt("id"));
-                ObjectMapper om = new ObjectMapper();
-                String viajejson = om.writeValueAsString(c);
-
                 if (v != null) {
-                return new ResponseEntity<>(viajejson, HttpStatus.OK);
+                return new ResponseEntity<>(v, HttpStatus.OK);
                 } else {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
@@ -287,26 +297,27 @@ public class SqliteController {
     }
 
     @CrossOrigin("http://127.0.0.1:5500")
-    @PostMapping("/editarViaje")
-    public ResponseEntity<String> editarViaje(@RequestBody String jsonData) {
+    @PutMapping("/editarViaje/{id}")
+    public ResponseEntity<Viaje> editarViaje(@PathVariable Integer id, @RequestBody String jsonData) {
         try {
             JSONObject data = new JSONObject(jsonData);
-            Viaje v = new Viaje();
-            v.setId(data.getInt("id"));
+            Viaje v = viajeRepository.findById(id).orElse(null);
+            v.setId(id);
             v.setOrigen(data.getString("origen"));
             v.setDestino(data.getString("destino"));
             v.setFecha(data.getString("fecha"));
-            v.setDuracion(data.getInt("duracion"));
-            v.setPrecio(data.getDouble("precio"));
-            v.setOferta(data.getInt("oferta"));
+            v.setDuracion(Integer.parseInt(data.getString("duracion")));
+            v.setPrecio(Double.parseDouble(data.getString("precio")));
+            v.setOferta(Integer.parseInt(data.getString("oferta")));
             v.setEmpresa(data.getString("empresa"));
-            v.setAsientosTotales(data.getInt("asientosTotales"));
-            v.setAsientosDisponibles(data.getInt("asientosDisponibles"));
+            v.setAsientosTotales(Integer.parseInt(data.getString("asientosTotales")));
+            v.setAsientosDisponibles(Integer.parseInt(data.getString("asientosDisponibles")));
             viajeRepository.save(v);
-            return new ResponseEntity<>( HttpStatus.OK);
+
+            return new ResponseEntity<>(v, HttpStatus.OK);
             
          } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear el viaje -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

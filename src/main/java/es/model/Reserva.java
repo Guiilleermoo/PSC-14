@@ -1,5 +1,7 @@
 package es.model;
 
+import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -20,11 +22,11 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "viaje")
     @JsonManagedReference
-    private Viaje viaje;
+    public Viaje viaje;
 
     @ManyToOne
     @JoinColumn(name = "cliente")
     @JsonManagedReference
-    private Cliente cliente;
+    public Cliente cliente;
     Integer numPlazas=null;
 }
