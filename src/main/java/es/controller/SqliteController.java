@@ -304,6 +304,25 @@ public class SqliteController {
     }
 
     @CrossOrigin("http://127.0.0.1:5500")
+    @GetMapping("/buscarViaje")
+        public ResponseEntity<String> getViaje(@RequestBody String jsonData) {
+            try {
+                JSONObject data = new JSONObject(jsonData);
+                Viaje v = viajeRepository.findByDni(data.getInt("id"));
+                ObjectMapper om = new ObjectMapper();
+                String viajejson = om.writeValueAsString(c);
+
+                if (v != null) {
+                return new ResponseEntity<>(viajejson, HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+    }
+
+    @CrossOrigin("http://127.0.0.1:5500")
     @PostMapping("/editarViaje")
     public ResponseEntity<String> editarViaje(@RequestBody String jsonData) {
         try {
