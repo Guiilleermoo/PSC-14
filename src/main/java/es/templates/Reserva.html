@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viajes Disponibles</title>
+    <link rel="stylesheet" href="../static/CSS/Reservas.css">
+    <script src="../static/JS/reservarViaje.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    
+  </head>
+  <body>
+    <table id="tabla">
+      <thead>
+        <tr class="tituloTabla">
+          <th colspan="12">Viajes disponibles</th>
+        </tr>
+        <tr class="indice">
+          <th class="numero">Id</th>
+          <th>Empresa</th>
+          <th>Origen</th>
+          <th>Destino</th>
+          <th>Fecha</th>
+          <th class="numero">Duración</th>
+          <th class="numero">Precio</th>
+          <th class="numero">Asientos Totales</th>
+          <th class="numero">Asientos Disponibles</th>
+          <th class="numero">Oferta</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="form-body" id="formulario">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Reservar un viaje</h3>
+                        <p>Rellena con información cada campo</p>
+                        <form class="requires-validation" novalidate>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input class="form-control" type="number" id="idViaje" placeholder="Id" required>
+                                    <div class="valid-feedback">El id es valido</div>
+                                    <div class="invalid-feedback">El id no es valido</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" id="dni" placeholder="DNI" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control" type="number" id="numPlazas" placeholder="Numero de plazas" required>
+                                </div>
+                            </div>
+                            
+                            <div class="check">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label">Confirmo que quiero reservar este viaje</label>
+                                    <div class="invalid-feedback">Porfavor confirma que quieres reservar este viaje</div>
+                                </div>
+                            </div>
+
+                            <div class="form-button mt-3">
+                                <button id="registrar" type="submit" class="btn btn-primary">Modificar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
