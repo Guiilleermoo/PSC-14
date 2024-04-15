@@ -19,6 +19,7 @@ public class Cliente {
     protected String gmail=null;
     protected String telefono=null;
     protected String residencia=null;
+    protected String password=null;
     
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore
