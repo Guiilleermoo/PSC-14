@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,9 @@ public class Viaje {
     @OneToMany(mappedBy = "viaje")
     @JsonIgnore
     private List<Reserva> reservas = new ArrayList<>();
-
+   
+    @ManyToMany(mappedBy = "viajesFavoritos")
+    private List<Cliente> clientesFavoritos;
     public String getOrigen() {
         return origen;
     }
@@ -47,5 +50,10 @@ public class Viaje {
 
     public int calcularPrecioFinal() {
         return (int) (precio - (precio * oferta / 100));
+    }
+
+    public Viaje orElse(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElse'");
     }
 }
