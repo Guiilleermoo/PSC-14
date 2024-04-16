@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 
 import javax.persistence.ManyToOne;
 
+import jakarta.persistence.Id;
 import lombok.Data;
 
 @Entity
