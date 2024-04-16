@@ -7,6 +7,6 @@ import es.model.Favorito;
 import java.util.List;
 
 @Repository
-public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
+public interface FavoritoRepository extends JpaRepository<Favorito, Integer> {
     List<Favorito> findByClienteDni(String dni);
 }
