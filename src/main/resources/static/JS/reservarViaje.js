@@ -62,8 +62,7 @@ let listarViajesOrdenados = async () => {
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
-            <i onClick="editarViaje(${viaje.id})"class="material-icons button edit">edit</i>
-            <i onClick="borrarViaje(${viaje.id})"class="material-icons button delete">delete</i>
+            <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
         </tr>
         ` 
@@ -113,8 +112,7 @@ let contenidoTabla = "";
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
-            <i onClick="editarViaje(${viaje.id})"class="material-icons button edit">edit</i>
-            <i onClick="borrarViaje(${viaje.id})"class="material-icons button delete">delete</i>
+            <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
         </tr>
         ` 
