@@ -39,7 +39,7 @@ public class ClienteTest {
         reserva2.setCliente(cliente);
         reservas.add(reserva2);
 
-        cliente.setReservas(reservas);
+        
     }
 
     @Test
@@ -50,12 +50,8 @@ public class ClienteTest {
         assertEquals("666444555", cliente.getTelefono());
         assertEquals("Calle Deusto", cliente.getResidencia());
         assertEquals("contra", cliente.getPassword());
-        assertEquals(reservas, cliente.getReservas());
+        
     }
 
-    @Test
-    public void testReservasSize() {
-        assertNotNull(cliente.getReservas());
-        assertEquals(2, cliente.getReservas().size());
-    }
+    
 }

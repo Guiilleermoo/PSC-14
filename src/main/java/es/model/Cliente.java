@@ -26,13 +26,4 @@ public class Cliente {
     protected String residencia=null;
     protected String password=null;
     
-    @OneToMany(mappedBy = "cliente")
-    @JsonIgnore
-    private List<Reserva> reservas = new ArrayList<>();
-    
-    @ManyToMany 
-    @JoinTable(name = "Favorito",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "viaje_id"))
-    private List<Viaje> viajesFavoritos;
 }

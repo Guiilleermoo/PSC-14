@@ -9,9 +9,8 @@
 }
 
 html, body {
-    height: 100%;
     background-color: #152733;
-    overflow: hidden;
+
 }
 
 
@@ -22,6 +21,7 @@ html, body {
     align-items: center;
     text-align: center;
     min-height: 100vh;
+   
 }
 
 .form-holder .form-content {
