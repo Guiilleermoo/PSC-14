@@ -1,23 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="../JS/index.js"></script>
-    <link rel="stylesheet" href="../CSS/index.css">
+<html lang="es">
 
-    <title>Inicio</title>
-</head>
-<body>
-    <h1 class="text-center" id="titulo">DEUSTO TRAVEL ADVISOR</h1>
-    <div class="d-grid gap-2 col-6 mx-auto" id="botones">
-        <button onclick="redirigirMisViajes()" class="btn btn-primary" type="button" id="misViajes">MIS VIAJES</button>
-        <button onclick="redirigirAñadirOferta()" class="btn btn-primary" type="button" id="añadirViajes">AÑADIR VIAJE</button>
-        <button onclick="redirigirReserva()" class="btn btn-primary" type="button" id="viajes">VIAJES</button>
-        <button onclick="redirigirEditarViajes()" class="btn btn-primary" type="button" id="editarViajes">EDITAR VIAJES</button>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DeustoTravelAdvisor</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../CSS/index.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+    </head>
+
+    <body>
+        <div class="container">
+            <header
+                class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <div class="col-md-3 mb-2 mb-md-0">
+                    <span class="navbar-brand mb-0 h1" id="nombreEmpresa">DeustoTravelAdvisor</span>
+                </div>
+
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li class="header"><a href="#" class="nav-link px-6">Home</a></li>
+                    <li class="header">
+                        <a href="#" class="nav-link px-2 link-secondary">Viajes</a>
+                    </li>
+                    <li class="header">
+                        <a href="#" class="nav-link px-2 link-secondary">About Us</a>
+                    </li>
+                </ul>
+
+                <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-outline-primary me-2">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-primary">Registrarse</button>
+                </div>
+            </header>
+        </div>
+
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../Fotos/bilbao.png" class="imagen" alt="Foto Bilbao" />
+                </div>
+                <div class="carousel-item">
+                    <img src="../Fotos/londres.jpg" class="imagen" alt="Foto Londres" />
+                </div>
+                <div class="carousel-item">
+                    <img src="../Fotos/roma.jpg" class="imagen" alt="Foto Roma" />
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+              <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                  <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+              </div>
+          
+              <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="material-icons button home" href="#">home</a></li>
+                <li class="ms-3"><a class="material-icons button trip" href="#">close</a></li>
+                <li class="ms-3"><a class="material-icons button trip" href="#">home</a></li>
+              </ul>
+            </footer>
+        </div>
+
+    </body>
+
 </html>

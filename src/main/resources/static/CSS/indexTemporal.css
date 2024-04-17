@@ -1,0 +1,31 @@
+body{
+    background-color: #fed8a5;
+}
+#botones{
+    padding-top: 5%;
+}
+#titulo{
+    margin-top: 2%;
+    font-weight: 800;
+        
+}
+#misViajes{
+    background-color: #401F71;
+    border-color: #401F71;
+    font-weight: 500;
+}
+#añadirViajes{
+    background-color : #824D74;
+    border-color: #824D74;
+    font-weight: 500;
+}
+#viajes{
+    background-color : #BE7B72;
+    border-color: #BE7B72;
+    font-weight: 500;
+}
+#editarViajes{
+    background-color : #FDAF7B;
+    border-color: #FDAF7B;
+    font-weight: 500;
+}
