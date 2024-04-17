@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.dao.ClienteRepository;
+import es.dao.FavoritoRepository;
 import es.dao.ReservaRepository;
 import es.dao.TrabajadorRepository;
 import es.dao.ViajeRepository;
@@ -29,12 +30,13 @@ public class SqliteController {
     ReservaRepository reservaRepository;
     TrabajadorRepository trabajadorRepository;
     ViajeRepository viajeRepository;
-
-    public SqliteController(ClienteRepository clienteRepository, ReservaRepository reservaRepository, TrabajadorRepository trabajadorRepository, ViajeRepository viajeRepository) {
+    FavoritoRepository favoritoRepository;
+    public SqliteController(FavoritoRepository favoritoRepository,ClienteRepository clienteRepository, ReservaRepository reservaRepository, TrabajadorRepository trabajadorRepository, ViajeRepository viajeRepository) {
         this.clienteRepository = clienteRepository;
         this.reservaRepository = reservaRepository;
         this.trabajadorRepository = trabajadorRepository;
         this.viajeRepository = viajeRepository; 
+        this.favoritoRepository = favoritoRepository;
     }
 
     // FUNCIONES TRABAJADOR
@@ -321,6 +323,25 @@ public class SqliteController {
             return new ResponseEntity<>(reservaCliente, HttpStatus.OK);
             
          } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @CrossOrigin("http://127.0.0.1:5500")
+    @GetMapping("/buscarFavorito")
+        public ResponseEntity<List<Favorito>> getFavoritoDni(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            List<Favorito> favorito = favoritoRepository.findByClienteDni(data.getString("dni"));
+
+            if(favorito != null) {
+               
+                return new ResponseEntity<>(favorito, HttpStatus.OK);
+               
+                
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
