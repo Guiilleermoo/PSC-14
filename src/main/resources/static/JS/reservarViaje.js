@@ -27,6 +27,9 @@ let listarViajes = async () => {
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
+            <i onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            </td>
+            <td>
             <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
         </tr>
@@ -61,6 +64,9 @@ let listarViajesOrdenados = async () => {
             <td>${viaje.asientosTotales}</td>
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
+            <td>
+            <i onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            </td>
             <td>
             <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
@@ -112,6 +118,9 @@ let contenidoTabla = "";
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
+            <i onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            </td>
+            <td>
             <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
         </tr>
@@ -122,6 +131,32 @@ let contenidoTabla = "";
 }
 
 let idEditar;
+
+let favorito = async (id) => {
+    idEditar = id;
+
+    const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
+
+        method: 'GET',
+     
+        headers: {
+            'Accept': 'application/json',
+            
+        },
+    });
+
+    let campos = {};
+    
+    campos.dniCliente = document.getElementById("dni").value;
+
+    const p = await fetch('http://localhost:8080/sql/crearReserva/' + id, {
+        method: 'POST',
+        body: JSON.stringify(campos),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 
 let reservarViaje = async (id) => {
 
@@ -151,6 +186,7 @@ let reservarViaje = async (id) => {
         aplicarActualizacion(idEditar);
     });
 }
+
 let aplicarActualizacion = async (id) => {
 
     let campos = {};
@@ -169,6 +205,7 @@ let aplicarActualizacion = async (id) => {
     listarViajes();
 
 }
+
 function mostrarFormulario() {
     let formulario = document.getElementById("formulario").style.visibility = "visible";
 }
