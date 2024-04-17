@@ -14,4 +14,9 @@ PASOS A SEGUIR PARA EJECUTAR EL PROYECTO
     
     El servidor se iniciará correctamente y el index.html será visible en localhost:8080/templates/index.html. A partir de este punto se podrá navegar por los distintos archivos .html desde el navegador.
 
+    FASE 2 -->
+
+    Para ejecutar los JUnit test:
+        mvn test
+
     Una vez terminado utilizamos el comando mvn clear para borrar lo preciamente copilado
