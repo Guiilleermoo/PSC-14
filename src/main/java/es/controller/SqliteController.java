@@ -329,17 +329,13 @@ public class SqliteController {
 
     // FUNCIONES FAVORITO
     @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarFavorito")
-        public ResponseEntity<List<Favorito>> getFavoritoDni(@RequestBody String jsonData) {
+    @GetMapping("/buscarFavorito/{dni}")
+        public ResponseEntity<List<Favorito>> getFavoritoDni(@PathVariable String dni) {
         try {
-            JSONObject data = new JSONObject(jsonData);
-            List<Favorito> favorito = favoritoRepository.findByClienteDni(data.getString("dni"));
+            List<Favorito> favorito = favoritoRepository.findByClienteDni(dni);
 
             if(favorito != null) {
-               
                 return new ResponseEntity<>(favorito, HttpStatus.OK);
-               
-                
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -347,6 +343,7 @@ public class SqliteController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
     @CrossOrigin("http://127.0.0.1:5500")
     @PostMapping("/anadirFavorito")
         public ResponseEntity<String> anadirFavorito(@RequestBody String jsonData) {
@@ -358,7 +355,6 @@ public class SqliteController {
             f.setCliente(c);
             f.setViaje(v);
             
-            
             favoritoRepository.save(f);
 
             return new ResponseEntity<>("Favorito añadido correctamente", HttpStatus.OK); 
@@ -366,6 +362,23 @@ public class SqliteController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
+    }
+
+    @CrossOrigin("http://127.0.0.1:5500")
+    @DeleteMapping("/eliminarFavorito")
+    public ResponseEntity<String> eliminarFavorito(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            Favorito f = favoritoRepository.findById(data.getInt("id"));
+            if (f != null) {
+                favoritoRepository.delete(f);
+                return new ResponseEntity<>("Reserva ha sido eliminado correctamente", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("No se ha encontrado la reserva", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al eliminar el reserva -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

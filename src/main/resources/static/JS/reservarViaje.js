@@ -27,7 +27,7 @@ let listarViajes = async () => {
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
-            <i onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
             </td>
             <td>
             <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
@@ -65,7 +65,7 @@ let listarViajesOrdenados = async () => {
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
-            <i onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
             </td>
             <td>
             <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
@@ -118,10 +118,10 @@ let contenidoTabla = "";
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
-            <i onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})" class="material-icons button star">star</i>
             </td>
             <td>
-            <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
+            <i onClick="reservarViaje(${viaje.id})" class="material-icons button check_circle">check_circle</i>
             </td>
         </tr>
         ` 
@@ -133,29 +133,81 @@ let contenidoTabla = "";
 let idEditar;
 
 let favorito = async (id) => {
+    const estrella = document.getElementById("estrella-" + id);
+    if (estrella.style.color === "yellow") {
+        await eliminarDeFavoritos(id);
+        estrella.style.color = "";
+    } else {
+        await agregarAFavoritos(id);
+        estrella.style.color = "yellow";
+    }
+};
+
+async function agregarAFavoritos(id) {
     idEditar = id;
 
     const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
-
         method: 'GET',
-     
         headers: {
-            'Accept': 'application/json',
-            
+            'Accept': 'application/json',   
         },
     });
 
-    let campos = {};
-    
-    campos.dniCliente = document.getElementById("dni").value;
+    const viaje = await peticion.json();
 
-    const p = await fetch('http://localhost:8080/sql/crearReserva/' + id, {
+    let campos = {};
+    //campos.dniCliente = document.getElementById("dni").value;
+    campos.dni = "2"
+    campos.id = viaje.id;
+
+    const response = await fetch('http://localhost:8080/sql/anadirFavorito', {
         method: 'POST',
         body: JSON.stringify(campos),
         headers: {
             'Content-Type': 'application/json'
         }
     });
+    if(response.ok) {
+        console.log("Añadido a favoritos")
+    } else {
+        console.error("Error al añadir a favoritos")
+    }
+}
+
+async function eliminarDeFavoritos(id) {
+    idEditar = id;
+
+    let dni = "2";
+
+    const peticion = await fetch('http://localhost:8080/sql/buscarFavorito/' + dni, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',   
+        },
+    });
+
+    const favorito = await peticion.json();
+
+    let campos = {};
+    
+
+    for(let f of favorito) {
+        if(f.viaje.id === id && f.cliente.dni === dni) {
+            campos.id = f.id;
+            const response = await fetch('http://localhost:8080/sql/eliminarFavorito', {
+                method: 'DELETE',
+                body: JSON.stringify(campos),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(response.ok) {
+                console.log("Eliminado de favoritos")
+            } else {
+                console.error("Error al eliminar de favoritos")
+            }
+        }
+    }
 }
 
 let reservarViaje = async (id) => {
