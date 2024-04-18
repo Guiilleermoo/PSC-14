@@ -27,3 +27,27 @@
 body{
     background-color: #9DB2BF;
 }
+h1,h3{
+    font-family: "Permanent Marker", cursive;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    
+}
+.texto{
+    padding: 5%;
+}
+.fotoLogo{
+    float: right;
+}
+p, ul{
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 700;
+    font-size: 20px;
+}
+strong{
+    font-style: oblique;
+}
+#headerLetra{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

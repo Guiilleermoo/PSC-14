@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
         loginTrabajador();
     });
 
+    let botonRegis = document.getElementById("btnRegis");
+
+    botonRegis.addEventListener("click", evento => {
+
+       
+        window.location.href = "../templates/AñadirOfertas.html";
+        
+    });
 
 
     let loginTrabajador = async () => {
@@ -18,5 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'GET',
         });
     }
+    
     
 });
