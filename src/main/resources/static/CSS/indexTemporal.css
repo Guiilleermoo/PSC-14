@@ -29,3 +29,6 @@ body{
     border-color: #FDAF7B;
     font-weight: 500;
 }
+.oculto {
+    display: none;
+}
