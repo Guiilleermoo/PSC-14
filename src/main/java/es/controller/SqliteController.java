@@ -326,6 +326,8 @@ public class SqliteController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // FUNCIONES FAVORITO
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarFavorito")
         public ResponseEntity<List<Favorito>> getFavoritoDni(@RequestBody String jsonData) {
@@ -345,4 +347,25 @@ public class SqliteController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @CrossOrigin("http://127.0.0.1:5500")
+    @PostMapping("/anadirFavorito")
+        public ResponseEntity<String> anadirFavorito(@RequestBody String jsonData) {
+        try {
+            JSONObject data = new JSONObject(jsonData);
+            Favorito f = new Favorito();
+            Cliente c = clienteRepository.findByDni(data.getString("dni"));
+            Viaje v = viajeRepository.findById(data.getInt("id"));
+            f.setCliente(c);
+            f.setViaje(v);
+            
+            
+            favoritoRepository.save(f);
+
+            return new ResponseEntity<>("Favorito añadido correctamente", HttpStatus.OK); 
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+    }
+
 }
