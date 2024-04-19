@@ -27,6 +27,9 @@ let listarViajes = async () => {
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
+            <i onClick="compararViaje(${viaje.id}) "class="material-icons button search">search</i>
+            </td>
+            <td>
             <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
             </td>
             <td>
@@ -64,6 +67,9 @@ let listarViajesOrdenados = async () => {
             <td>${viaje.asientosTotales}</td>
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
+            <td>
+            <i onClick="compararViaje(${viaje.id}) "class="material-icons button search">search</i>
+            </td>
             <td>
             <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
             </td>
@@ -118,10 +124,13 @@ let contenidoTabla = "";
             <td>${viaje.asientosDisponibles}</td>
             <td>${viaje.oferta}</td>
             <td>
-            <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})" class="material-icons button star">star</i>
+            <i onClick="compararViaje(${viaje.id}) "class="material-icons button search">search</i>
             </td>
             <td>
-            <i onClick="reservarViaje(${viaje.id})" class="material-icons button check_circle">check_circle</i>
+            <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+            </td>
+            <td>
+            <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
         </tr>
         ` 
@@ -131,6 +140,26 @@ let contenidoTabla = "";
 }
 
 let idEditar;
+
+let compararViaje = async (id) => {
+
+        idEditar = id;
+    
+        const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
+    
+            method: 'GET',
+        
+            headers: {
+                'Accept': 'application/json',
+                
+            },
+        });
+        
+        const viaje = await peticion.json();
+        const params = new URLSearchParams();
+        params.append('viaje', JSON.stringify(viaje));
+        window.location.href = 'compararViajes.html?' + params.toString(); 
+}
 
 let favorito = async (id) => {
     const estrella = document.getElementById("estrella-" + id);
