@@ -1,6 +1,5 @@
 package es;
 
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -33,6 +32,4 @@ public class TrabajadorTest {
         assertEquals("contra", trabajador.getPassword());
         
     }
-
-    
 }

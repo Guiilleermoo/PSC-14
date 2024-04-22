@@ -7,6 +7,7 @@ import es.model.Favorito;
 import es.model.Viaje;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class FavoritoTest {
 
@@ -14,18 +15,19 @@ public class FavoritoTest {
     public void testFavoritoConstructorAndGetters() {
         // Crear ejemplos de las clases relacionadas
         Integer id = 1;
-        Viaje viaje = new Viaje();
-        Cliente cliente = new Cliente();
+        Viaje viajeMock = mock(Viaje.class);
+        Cliente clienteMock = mock(Cliente.class);
 
         // Crear un objeto de la clase favorito
         Favorito favorito = new Favorito();
         favorito.setId(id);
-        favorito.setViaje(viaje);
-        favorito.setCliente(cliente);
+        favorito.setViaje(viajeMock);
+        favorito.setCliente(clienteMock);
+        System.out.println(favorito);
 
         // Verificar que el constructor y los getters funcionan correctamente
         assertEquals(id, favorito.getId());
-        assertEquals(viaje, favorito.getViaje());
-        assertEquals(cliente, favorito.getCliente());
+        assertEquals(viajeMock, favorito.getViaje());
+        assertEquals(clienteMock, favorito.getCliente());
     }
 }

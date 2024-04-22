@@ -1,14 +1,16 @@
 package es;
 
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyInt;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import es.model.Cliente;
 import es.model.Reserva;
@@ -16,6 +18,8 @@ import es.model.Reserva;
 public class ClienteTest {
 
     private Cliente cliente;
+
+    @Mock
     private List<Reserva> reservas;
 
     @Before
@@ -28,18 +32,10 @@ public class ClienteTest {
         cliente.setResidencia("Calle Deusto");
         cliente.setPassword("contra");
 
-        reservas = new ArrayList<>();
-        Reserva reserva1 = new Reserva();
-        reserva1.setId(1);
-        reserva1.setCliente(cliente);
-        reservas.add(reserva1);
-
-        Reserva reserva2 = new Reserva();
-        reserva2.setId(2);
-        reserva2.setCliente(cliente);
-        reservas.add(reserva2);
-
-        
+        // Estas 3 lineas simulan el comportamiento de la lista de reservas
+        when(reservas.size()).thenReturn(2);
+        when(reservas.get(0)).thenReturn(new Reserva());
+        when(reservas.get(1)).thenReturn(new Reserva());
     }
 
     @Test
@@ -49,9 +45,9 @@ public class ClienteTest {
         assertEquals("unaiaira@gmail.com", cliente.getGmail());
         assertEquals("666444555", cliente.getTelefono());
         assertEquals("Calle Deusto", cliente.getResidencia());
-        assertEquals("contra", cliente.getPassword());
+        assertEquals("contra", cliente.getPassword());  
         
+        assertEquals(2, reservas.size());
+        verify(reservas, times(2)).get(anyInt());
     }
-
-    
 }
