@@ -38,7 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let botonLogin = document.getElementById("btnLogin");
     botonLogin.addEventListener("click", async evento => {
-
+        var email =  document.getElementById("email").value;
+        console.log("Email:", email);
+        document.cookie = `email=${email}; path=/`;
+        console.log("Cookie email establecida:", document.cookie);
         comprobarLogin();
 
     });
