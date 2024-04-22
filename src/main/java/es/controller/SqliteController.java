@@ -101,24 +101,22 @@ public class SqliteController {
 
     // FUNCIONES CLIENTE
     @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarCliente")
-        public ResponseEntity<Cliente> getCliente(@RequestBody String jsonData) {
+    @GetMapping("/buscarCliente/{dni}/{gmail}")
+        public ResponseEntity<Cliente> getCliente(@PathVariable String dni, @PathVariable String gmail) {
+        Cliente c = clienteRepository.findByDni(dni);
+        
         try {
-            JSONObject data = new JSONObject(jsonData);
-            Cliente c = clienteRepository.findByDni(data.getString("dni"));
-
-            if (c != null) {
-                if(c.getGmail() == data.getString("gmail") && c.getPassword() == data.getString("password")) {
-                    return new ResponseEntity<>(c, HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-            } else {
+            if (c != null && c.getGmail().equals(gmail) ) {
+                return new ResponseEntity<>(c, HttpStatus.OK);
+            }else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        
+        
     }
 
     @CrossOrigin("http://127.0.0.1:5500")
@@ -150,6 +148,7 @@ public class SqliteController {
             t.setGmail(data.getString("gmail"));
             t.setTelefono(data.getString("telefono"));
             t.setResidencia(data.getString("residencia"));
+            t.setPassword(data.getString("contrasena"));
         
             clienteRepository.save(t);
             return new ResponseEntity<>("cliente  ha sido guardado correctamente", HttpStatus.OK);

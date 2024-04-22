@@ -1,0 +1,146 @@
+#nombreEmpresa {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.header {
+    font-size: 20px;
+
+}
+
+.container {
+    background-color: #DDE6ED;
+    border-radius: 15px;
+    margin-top: 1%;
+
+}
+
+.btn {
+    font-size: 15px;
+}
+
+#carouselExampleAutoplaying {
+    margin-right: 6%;
+    margin-left: 6%;
+
+}
+
+.imagen {
+    width: 100%;
+    height: 600px;
+}
+
+body {
+    background-color: #9DB2BF;
+}
+
+h1,
+h3 {
+    font-family: "Permanent Marker", cursive;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+
+}
+
+.texto {
+    padding: 5%;
+}
+
+.fotoLogo {
+    float: right;
+}
+
+p,
+ul {
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+strong {
+    font-style: oblique;
+}
+
+#headerLetra {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#persona {
+    border-radius: 50px;
+    background-color: #c9d5dc;
+    color: rgb(76, 155, 235);
+    border: 2px solid rgb(76, 155, 235);
+
+}
+
+.dropdown {
+    padding-top: 25px;
+}
+
+.dropbtn:hover {
+
+    color: #FFCF9D;
+    border-bottom: 2px #FFB000 solid;
+
+}
+
+.dropbtn {
+    background-color: #3D8361;
+    color: #EEF2E6;
+    font-family: cursive;
+    font-size: 100%;
+    padding-right: 30px;
+
+    border: none;
+    cursor: pointer;
+
+}
+
+/* Estilos para el contenido del menú desplegable */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #6dad8e;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+/* Estilos para los enlaces en el menú desplegable */
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambia el color del enlace cuando el mouse pasa por encima */
+.dropdown-content a:hover {
+
+    color: #FFCF9D;
+}
+
+/* Muestra el menú desplegable cuando se pasa el mouse sobre el botón */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Establecer la animación para el menú desplegable */
+.dropdown-content.fade {
+    animation: fadeInOut 0.3s ease-in-out;
+}
+
+* {
+    font-family: Open Sans;
+}

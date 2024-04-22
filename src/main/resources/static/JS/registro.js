@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
         let crearCliente = async () => {
     
-            const DNI = document.getElementById("DNi").value;
+            const DNI = document.getElementById("DNI").value;
             const nombre = document.getElementById("nombre").value;
             const gmail = document.getElementById("gmail").value;
             const telefono = document.getElementById("telefono").value;
@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     gmail: gmail, 
                     telefono: telefono,   
                     residencia: residencia,
+                    contrasena: contrasena
                     
                 }),
                 headers: {

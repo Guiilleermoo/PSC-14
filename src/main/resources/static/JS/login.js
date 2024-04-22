@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Your code here
-    let boton = document.getElementById("btnLogin");
+    //Ejemplo con cookies
+    /*let boton = document.getElementById("btnLogin");
 
     boton.addEventListener("click", evento => {
         var correo =  document.getElementById("email").value;
@@ -24,30 +25,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
         
     });
+    */
 
     let botonRegis = document.getElementById("btnRegis");
 
     botonRegis.addEventListener("click", evento => {
 
        
-        window.location.href = "../templates/AñadirOfertas.html";
+        window.location.href = "../templates/Registro.html";
         
     });
 
+    let botonLogin = document.getElementById("btnLogin");
+    botonLogin.addEventListener("click", async evento => {
 
-    let loginTrabajador = async () => {
+        comprobarLogin();
 
-        const dni = document.getElementById("dni").value;
+    });
 
-
-   
-
-
-        const response = await fetch('http://localhost:8080/sql/buscarTrabajador/' + dni, {
-
-            method: 'GET',
+    let comprobarLogin = async () => {
+        const DNI = document.getElementById("dni").value;
+        const gmail = document.getElementById("email").value;
+        const response = await fetch('http://localhost:8080/sql/buscarCliente/' + DNI + '/' +  gmail,  {
+                
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
         });
-    }
+        if(response.status === 200){
+            window.location.href = "../templates/MisViajes.html";
+        }else{
+            alert("Email o DNI incorrectos");
+        }
+
+    };
+        
     
     
 });

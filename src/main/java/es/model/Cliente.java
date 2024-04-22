@@ -16,4 +16,8 @@ public class Cliente {
     protected String residencia=null;
     protected String password=null;
     
+    public Cliente orElse(Object object) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'orElse'");
+    }
 }
