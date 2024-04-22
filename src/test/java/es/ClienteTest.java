@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import es.model.Cliente;
 import es.model.Reserva;
@@ -24,6 +25,8 @@ public class ClienteTest {
 
     @Before
     public void setUp() {
+    MockitoAnnotations.openMocks(this);
+
         cliente = new Cliente();
         cliente.setDni("78955017L");
         cliente.setNombre("Unai Aira");
