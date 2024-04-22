@@ -17,7 +17,6 @@ import lombok.Data;
 public class Favorito {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @ManyToOne
