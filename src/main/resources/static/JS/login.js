@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
         });
         if(response.status === 200){
-            window.location.href = "../templates/MisViajes.html";
+            window.location.href = "../templates/indexCliente.html";
         }else{
             alert("Email o DNI incorrectos");
         }
