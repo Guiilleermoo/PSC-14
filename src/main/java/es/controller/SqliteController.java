@@ -114,11 +114,24 @@ public class SqliteController {
         
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        
-        
+        } 
     }
 
+    @CrossOrigin("http://127.0.0.1:5500")
+    @GetMapping("/buscarCliente/{gmail}")
+        public ResponseEntity<Cliente> getCliente(@PathVariable String gmail) {
+        Cliente c = clienteRepository.findByGmail(gmail);
+        
+        try {
+            if (c != null && c.getGmail().equals(gmail) ) {
+                return new ResponseEntity<>(c, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @CrossOrigin("http://127.0.0.1:5500")
     @DeleteMapping("/eliminarCliente")
     public ResponseEntity<String> eliminarCliente(@RequestBody String jsonData) {
@@ -344,23 +357,26 @@ public class SqliteController {
     }
     
     @CrossOrigin("http://127.0.0.1:5500")
-    @PostMapping("/anadirFavorito")
-        public ResponseEntity<String> anadirFavorito(@RequestBody String jsonData) {
+    @PostMapping("/anadirFavorito/{dni}/{id}")
+        public ResponseEntity<String> anadirFavorito(@PathVariable String dni, @PathVariable Integer id) {
         try {
-            JSONObject data = new JSONObject(jsonData);
             Favorito f = new Favorito();
-            Cliente c = clienteRepository.findByDni(data.getString("dni"));
-            Viaje v = viajeRepository.findById(data.getInt("id"));
+            Cliente c = clienteRepository.findByDni(dni);
+            Viaje v = viajeRepository.findById(id).orElse(null);
             f.setCliente(c);
             f.setViaje(v);
-            
+            int randomNum = 0;
+            for(int i = 0; i< 10; i++){
+                randomNum = (int)(Math.random() * 1000 + 1);
+            }
+            f.setId(randomNum);
+
             favoritoRepository.save(f);
 
             return new ResponseEntity<>("Favorito añadido correctamente", HttpStatus.OK); 
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        
+        } 
     }
 
     @CrossOrigin("http://127.0.0.1:5500")

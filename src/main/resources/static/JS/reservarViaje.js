@@ -1,5 +1,6 @@
 window.onload = function () {
     listarViajes();
+    marcarFavoritos();
 }
 
 let listarViajes = async () => {
@@ -40,6 +41,32 @@ let listarViajes = async () => {
         contenidoTabla += contenidoFila;
     }
     document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
+}
+
+async function marcarFavoritos() {
+    const gmail = obtenerValorCookie("email");
+    const busquedaCliente = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'  
+        },
+    });
+    const cliente = await busquedaCliente.json();
+
+    const peticionFavoritos = await fetch('http://localhost:8080/sql/buscarFavorito/' + cliente.dni, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',   
+        },
+    });
+    const favoritos = await peticionFavoritos.json();
+
+    favoritos.forEach(favorito => {
+        const estrella = document.getElementById("estrella-" + favorito.viaje.id);
+        if (estrella) {
+            estrella.style.color = "yellow";
+        }
+    });
 }
 
 let listarViajesOrdenados = async () => {
@@ -161,6 +188,22 @@ let compararViaje = async (id) => {
         window.location.href = 'compararViajes.html?' + params.toString(); 
 }
 
+function obtenerValorCookie(nombre) {
+    const cookies = document.cookie.split(';');
+
+    for (let cookie of cookies) {
+        const partes = cookie.split('=');
+        const nombreCookie = partes[0].trim();
+        const valorCookie = partes[1];
+
+        if (nombreCookie === nombre) {
+            return valorCookie;
+        }
+    }
+
+    return null;
+}
+
 let favorito = async (id) => {
     const estrella = document.getElementById("estrella-" + id);
     if (estrella.style.color === "yellow") {
@@ -183,19 +226,24 @@ async function agregarAFavoritos(id) {
     });
 
     const viaje = await peticion.json();
+    const gmail = obtenerValorCookie("email");
 
-    let campos = {};
-    //campos.dniCliente = document.getElementById("dni").value;
-    campos.dni = "2"
-    campos.id = viaje.id;
+    const busqueda = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'  
+        },
+    });
 
-    const response = await fetch('http://localhost:8080/sql/anadirFavorito', {
+    const cliente = await busqueda.json();
+
+    const response = await fetch('http://localhost:8080/sql/anadirFavorito/' + cliente.dni + "/" + viaje.id, {
         method: 'POST',
-        body: JSON.stringify(campos),
         headers: {
             'Content-Type': 'application/json'
         }
     });
+
     if(response.ok) {
         console.log("Añadido a favoritos")
     } else {
@@ -206,9 +254,19 @@ async function agregarAFavoritos(id) {
 async function eliminarDeFavoritos(id) {
     idEditar = id;
 
-    let dni = "2";
+    const gmail = obtenerValorCookie("email");
 
-    const peticion = await fetch('http://localhost:8080/sql/buscarFavorito/' + dni, {
+    const busqueda = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'  
+        },
+    });
+
+    const cliente = await busqueda.json();
+    
+
+    const peticion = await fetch('http://localhost:8080/sql/buscarFavorito/' + cliente.dni, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',   
@@ -216,12 +274,10 @@ async function eliminarDeFavoritos(id) {
     });
 
     const favorito = await peticion.json();
-
     let campos = {};
-    
 
     for(let f of favorito) {
-        if(f.viaje.id === id && f.cliente.dni === dni) {
+        if(f.viaje.id === id && f.cliente.dni === cliente.dni) {
             campos.id = f.id;
             const response = await fetch('http://localhost:8080/sql/eliminarFavorito', {
                 method: 'DELETE',
@@ -282,9 +338,7 @@ let aplicarActualizacion = async (id) => {
             'Content-Type': 'application/json'
         }
     });
-
     listarViajes();
-
 }
 
 function mostrarFormulario() {
