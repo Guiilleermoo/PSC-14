@@ -106,7 +106,7 @@ public class SqliteController {
         Cliente c = clienteRepository.findByGmail(gmail);
         
         try {
-            if (c != null && c.getGmail().equals(gmail) ) {
+            if (c != null && c.getPassword().equals(password) ) {
                 return new ResponseEntity<>(c, HttpStatus.OK);
             }else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -393,6 +393,22 @@ public class SqliteController {
             }
         } catch (Exception e) {
             return new ResponseEntity<>("Error al eliminar el reserva -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin("http://127.0.0.1:5500")
+    @GetMapping("/buscarDNI/{gmail}")
+        public ResponseEntity<String> getDNIporGmail(@PathVariable String gmail) {
+        try {
+            String dni = clienteRepository.findByGmail(gmail).getDni();
+
+            if(dni != null) {
+                return new ResponseEntity<>(dni, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

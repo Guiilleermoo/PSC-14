@@ -17,7 +17,7 @@
     <table id="tabla">
       <thead>
         <tr class="tituloTabla">
-          <th colspan="12">Viajes disponibles</th>
+          <th colspan="13">Viajes disponibles</th>
         </tr>
         <tr class="indice">
           <th class="numero">Id</th>
@@ -25,19 +25,18 @@
           <th>Origen</th>
           <th>Destino</th>
           <th>Fecha</th>
-          <th class="numero">Duración</th>
+          <th class="numero"><button id="ordenar" onClick="listarViajesOrdenados2()" type="submit" class="btn btn-light">Duracion</button></th>
           <th class="numero">Precio</th>
           <th class="numero">Asientos Totales</th>
           <th class="numero">Asientos Disponibles</th>
           <th class="numero">Oferta</th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
-    
-    <div>
-        <button id="ordenar" onClick="listarViajesOrdenados2()" type="submit" class="btn btn-primary">Ordenar por duracion</button>
-    </div>
     
     <div class="form-body" id="formulario">
         <div class="row">

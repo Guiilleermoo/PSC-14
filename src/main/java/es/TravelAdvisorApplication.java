@@ -13,7 +13,7 @@ public class TravelAdvisorApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-     
+        System.out.println("");
         System.out.println("¡Servidor Iniciado correctamente!");
     }
     

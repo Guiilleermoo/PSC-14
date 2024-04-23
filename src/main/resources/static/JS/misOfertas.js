@@ -1,9 +1,31 @@
 window.onload = function () {
     listarViajes();
 }
+function obtenerValorCookie(nombre) {
+    const cookies = document.cookie.split(';');
 
+    for (let cookie of cookies) {
+        const partes = cookie.split('=');
+        const nombreCookie = partes[0].trim();
+        const valorCookie = partes[1];
+
+        if (nombreCookie === nombre) {
+            return valorCookie;
+        }
+    }
+
+    return null;
+}
 let listarViajes = async () => {
-    const peticion = await fetch('http://localhost:8080/sql/viajesCliente/' + "1", {
+    const gmail = obtenerValorCookie("email");
+    const busquedaCliente = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        },
+    });
+    const cliente = await busquedaCliente.json();
+    const peticion = await fetch('http://localhost:8080/sql/viajesCliente/' + cliente.dni, {
 
         method: 'GET',
         headers: {
@@ -84,3 +106,4 @@ let eliminarReserva = async (id) => {
     });
     listarViajes();
 }
+
