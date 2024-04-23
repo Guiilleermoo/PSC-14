@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Your code here
     //Ejemplo con cookies
     /*let boton = document.getElementById("btnLogin");
 
@@ -47,9 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     let comprobarLogin = async () => {
-        const DNI = document.getElementById("dni").value;
         const gmail = document.getElementById("email").value;
-        const response = await fetch('http://localhost:8080/sql/buscarCliente/' + DNI + '/' +  gmail,  {
+        const password = document.getElementById("password").value;
+        console.log("Gmail:1", gmail);
+        console.log("Password:1", password);
+        const response = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail + '/' +  password,  {
                 
                 method: 'GET',
                 headers: {
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if(response.status === 200){
             window.location.href = "../templates/indexCliente.html";
         }else{
-            alert("Email o DNI incorrectos");
+            alert("Email o password incorrectos");
         }
 
     };

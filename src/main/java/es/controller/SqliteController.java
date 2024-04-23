@@ -101,9 +101,9 @@ public class SqliteController {
 
     // FUNCIONES CLIENTE
     @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarCliente/{dni}/{gmail}")
-        public ResponseEntity<Cliente> getCliente(@PathVariable String dni, @PathVariable String gmail) {
-        Cliente c = clienteRepository.findByDni(dni);
+    @GetMapping("/buscarCliente/{gmail}/{password}")
+        public ResponseEntity<Cliente> getCliente(@PathVariable String gmail, @PathVariable String password) {
+        Cliente c = clienteRepository.findByGmail(gmail);
         
         try {
             if (c != null && c.getGmail().equals(gmail) ) {
