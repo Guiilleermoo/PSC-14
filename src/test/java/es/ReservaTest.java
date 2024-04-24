@@ -32,4 +32,19 @@ public class ReservaTest {
         assertEquals(clienteMock, reserva.getCliente());
         assertEquals(numPlazas, reserva.getNumPlazas());
     }
+    @Test
+    public void testToString() {
+        // Crear una instancia de Reserva con datos de ejemplo
+        Reserva reserva = new Reserva();
+        reserva.setId(1);
+        reserva.setViaje(new Viaje());
+        reserva.setCliente(new Cliente());
+        reserva.setNumPlazas(2);
+
+        // Definir la representación esperada de la reserva como una cadena
+        String expectedToString = "Reserva{id=1, viaje=Viaje{...}, cliente=Cliente{...}, numPlazas=2}";
+
+        // Verificar que el método toString() devuelve la representación esperada
+        assertEquals(expectedToString, reserva.toString());
+    }
 }

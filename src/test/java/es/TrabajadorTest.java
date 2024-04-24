@@ -101,6 +101,18 @@ public class TrabajadorTest {
         // Verificar que los hash codes de los trabajadores ya no sean iguales
         assertNotEquals(trabajador1.hashCode(), trabajador2.hashCode());
     }
+    @Test
+    public void testToString() {
+        String expectedToString = "Trabajador{" +
+                "dni='78955017L'" +
+                ", nombre='Unai Aira'" +
+                ", gmail='unaiaira@gmail.com'" +
+                ", telefono='666444555'" +
+                ", sueldo=1000" +
+                ", password='contra'" +
+                '}';
+        assertEquals(expectedToString, trabajador.toString());
+    }
     
 
    
