@@ -71,76 +71,36 @@ strong {
     background-color: #c9d5dc;
     color: rgb(76, 155, 235);
     border: 2px solid rgb(76, 155, 235);
-
+    width: 80px;
 }
 
 .dropdown {
-    padding-top: 25px;
+    display: inline-block;
+    position: relative;
 }
 
-.dropbtn:hover {
-
-    color: #FFCF9D;
-    border-bottom: 2px #FFB000 solid;
-
-}
-
-.dropbtn {
-    background-color: #3D8361;
-    color: #EEF2E6;
-    font-family: cursive;
-    font-size: 100%;
-    padding-right: 30px;
-
-    border: none;
-    cursor: pointer;
-
-}
-
-/* Estilos para el contenido del menú desplegable */
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #6dad8e;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
-/* Estilos para los enlaces en el menú desplegable */
-.dropdown-content a {
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-
-/* Cambia el color del enlace cuando el mouse pasa por encima */
-.dropdown-content a:hover {
-
-    color: #FFCF9D;
-}
-
-/* Muestra el menú desplegable cuando se pasa el mouse sobre el botón */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+.dropdown-content a {
+    display: block;
+    color: #000000;
+    text-align: center;
+    font-weight: 800;
+    padding: 5px;
+    text-decoration: none;
 }
 
-/* Establecer la animación para el menú desplegable */
-.dropdown-content.fade {
-    animation: fadeInOut 0.3s ease-in-out;
-}
-
-* {
-    font-family: Open Sans;
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #48acea;
 }

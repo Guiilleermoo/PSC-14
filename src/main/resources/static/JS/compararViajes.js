@@ -91,13 +91,3 @@ let listarViajes = async () => {
     document.querySelector("#tabla2 tbody").outerHTML = contenidoTabla;
 }
 
-
-const detallesViaje = document.getElementById('detalles-viaje');
-
-const origenDestino = document.createElement('p');
-origenDestino.textContent = 'Origen: ' + viaje.origen + ' - Destino: ' + viaje.destino;
-detallesViaje.appendChild(origenDestino);
-
-const fechaViaje = document.createElement('p');
-fechaViaje.textContent = 'Fecha del Viaje: ' + viaje.fecha;
-detallesViaje.appendChild(fechaViaje);

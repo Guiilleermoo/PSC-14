@@ -52,18 +52,56 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Password:1", password);
         const response = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail + '/' +  password,  {
                 
-                method: 'GET',
-                headers: {
+            method: 'GET',
+            headers: {
                     'Content-Type': 'application/json'
-                }
+            }
         });
+        const response2 = await fetch('http://localhost:8080/sql/buscarTrabajador/' + gmail + '/' +  password,  {
+                
+            method: 'GET',
+            headers: {
+                'Accept-Type': 'application/json'
+            }
+        });
+        const trabajador = await response2.json();
+        console.log("Trabajador:", trabajador);
+        const params = new URLSearchParams();
+        params.append('trabajador', JSON.stringify(trabajador));
+
         if(response.status === 200){
             window.location.href = "../templates/indexCliente.html";
+        }else if(response.status === 404 && response2.status === 200){
+          
+            window.location.href = 'indexTrabajador.html?' + params.toString();    
         }else{
-            alert("Email o password incorrectos");
+            alert("Email o contraseña incorrectos");
         }
 
+            
+
     };
+    /*
+    let compararViaje = async (id) => {
+
+        idEditar = id;
+    
+        const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
+    
+            method: 'GET',
+        
+            headers: {
+                'Accept': 'application/json',
+                
+            },
+        });
+        
+        const viaje = await peticion.json();
+        const params = new URLSearchParams();
+        params.append('viaje', JSON.stringify(viaje));
+        window.location.href = 'CompararViajes.html?' + params.toString(); 
+    };
+    */
         
     
     

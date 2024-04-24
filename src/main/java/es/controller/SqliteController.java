@@ -41,6 +41,23 @@ public class SqliteController {
 
     // FUNCIONES TRABAJADOR
     @CrossOrigin("http://127.0.0.1:5500")
+    @GetMapping("/buscarTrabajador/{gmail}/{password}")
+        public ResponseEntity<Trabajador> getTrabajador(@PathVariable String gmail, @PathVariable String password) {
+        Trabajador t = trabajadorRepository.findByGmail(gmail);
+        
+        try {
+            if (t != null && t.getPassword().equals(password) ) {
+                return new ResponseEntity<>(t, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } 
+    }
+
+    @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarTrabajador")
         public ResponseEntity<Trabajador> getTrabajador(@RequestBody String jsonData) {
         try {
