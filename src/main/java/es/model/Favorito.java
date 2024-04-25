@@ -27,6 +27,7 @@ public class Favorito {
     @JsonManagedReference
     public Cliente cliente;
 
+    
 
     
 }
