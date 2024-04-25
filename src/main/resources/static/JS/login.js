@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Content-Type': 'application/json'
             }
         });
+
         const response2 = await fetch('http://localhost:8080/sql/buscarTrabajador/' + gmail + '/' +  password,  {
                 
             method: 'GET',
@@ -64,12 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Accept-Type': 'application/json'
             }
         });
-        const trabajador = await response2.json();
-        console.log("Trabajador:", trabajador);
-        const params = new URLSearchParams();
-        params.append('trabajador', JSON.stringify(trabajador));
 
-        if(response.status === 200){
+        if(response2.status === 200) {
+            const trabajador = await response2.json();
+            console.log("Trabajador:", trabajador);
+            const params = new URLSearchParams();
+            params.append('trabajador', JSON.stringify(trabajador));
+        }
+        
+
+        if(response.status === 200 && response2.status === 404){
             window.location.href = "../templates/indexCliente.html";
         }else if(response.status === 404 && response2.status === 200){
           
