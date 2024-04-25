@@ -92,7 +92,7 @@ public class SqliteController {
             t.setSueldo(data.getInt("sueldo"));
         
             trabajadorRepository.save(t);
-            return new ResponseEntity<>("trabajador  ha sido guardado correctamente", HttpStatus.OK);
+            return new ResponseEntity<>("trabajador ha sido guardado correctamente", HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException(String.format("Error al crear el trabajador -> %s", e.getMessage()));
         }
@@ -120,9 +120,10 @@ public class SqliteController {
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarCliente/{gmail}/{password}")
         public ResponseEntity<Cliente> getCliente(@PathVariable String gmail, @PathVariable String password) {
-        Cliente c = clienteRepository.findByGmail(gmail);
+        
         
         try {
+            Cliente c = clienteRepository.findByGmail(gmail);
             if (c != null && c.getPassword().equals(password) ) {
                 return new ResponseEntity<>(c, HttpStatus.OK);
             }else {
@@ -181,7 +182,7 @@ public class SqliteController {
             t.setPassword(data.getString("contrasena"));
         
             clienteRepository.save(t);
-            return new ResponseEntity<>("cliente  ha sido guardado correctamente", HttpStatus.OK);
+            return new ResponseEntity<>("cliente ha sido guardado correctamente", HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException(String.format("Error al crear el cliente -> %s", e.getMessage()));
         }
@@ -234,8 +235,8 @@ public class SqliteController {
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarViaje/{id}")
         public ResponseEntity<Viaje> getViaje(@PathVariable Integer id) {
-            Viaje v = viajeRepository.findById(id).orElse(null);
             try {
+                Viaje v = viajeRepository.findById(id).orElse(null);
                 if (v != null) {
                 return new ResponseEntity<>(v, HttpStatus.OK);
                 } else {
@@ -380,10 +381,11 @@ public class SqliteController {
             Favorito f = new Favorito();
             Cliente c = clienteRepository.findByDni(dni);
             Viaje v = viajeRepository.findById(id).orElse(null);
-            f.setCliente(c);
-            f.setViaje(v);
-            int randomNum = 0;
-            for(int i = 0; i< 10; i++){
+            if ( c != null) {
+                f.setCliente(c);
+                f.setViaje(v);
+                int randomNum = 0;
+                for(int i = 0; i< 10; i++){
                 randomNum = (int)(Math.random() * 1000 + 1);
             }
             f.setId(randomNum);
@@ -391,6 +393,9 @@ public class SqliteController {
             favoritoRepository.save(f);
 
             return new ResponseEntity<>("Favorito añadido correctamente", HttpStatus.OK); 
+            }else{
+                return new ResponseEntity<>("No eres cliente debes de registrarte", HttpStatus.NOT_FOUND); 
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } 
