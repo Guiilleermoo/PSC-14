@@ -42,7 +42,7 @@ public class ReservaTest {
         reserva.setNumPlazas(2);
 
         // Definir la representación esperada de la reserva como una cadena
-        String expectedToString = "Reserva{id=1, viaje=Viaje{...}, cliente=Cliente{...}, numPlazas=2}";
+        String expectedToString = "Reserva(id=1, viaje=Viaje(id=0, origen=null, destino=null, fecha=null, duracion=0, precio=0.0, oferta=0, empresa=null, asientosTotales=0, asientosDisponibles=0), cliente=Cliente(dni=null, nombre=null, gmail=null, telefono=null, residencia=null, password=null), numPlazas=2)";
 
         // Verificar que el método toString() devuelve la representación esperada
         assertEquals(expectedToString, reserva.toString());
