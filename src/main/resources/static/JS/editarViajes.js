@@ -126,6 +126,21 @@ let editarViaje = async (id) => {
 });
 }
 
+function obtenerValorCookie(nombre) {
+    const cookies = document.cookie.split(';');
+
+    for (let cookie of cookies) {
+        const partes = cookie.split('=');
+        const nombreCookie = partes[0].trim();
+        const valorCookie = partes[1];
+
+        if (nombreCookie === nombre) {
+            return valorCookie;
+        }
+    }
+
+    return null;
+}
 
 
 let aplicarActualizacion = async (id) => {
@@ -142,8 +157,6 @@ let aplicarActualizacion = async (id) => {
     campos.asientosDisponibles = document.getElementById("asientosDisponibles").value;
     campos.oferta = document.getElementById("oferta").value;
    
-   
-    console.log(campos);
     const p = await fetch('http://localhost:8080/sql/editarViaje/' + id, {
         method: 'PUT',
         body: JSON.stringify(campos),
@@ -152,11 +165,46 @@ let aplicarActualizacion = async (id) => {
             'Accept': 'application/json'    
         }
     });
+    
+    if(p.ok){
+        const gmail = obtenerValorCookie("gmail");
+
+        const response = await fetch('http://localhost:8080/sql/buscarTrabajador/' + gmail, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'    
+            }
+        });
+
+        const trabajador = await response.json();
+        console.log(trabajador);
+
+        const mensaje = "El trabajador " + trabajador.nombre + " ha modificado el viaje con id " + id;
+
+        fetch('http://localhost:8080/api/registrarCambios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ mensaje: mensaje })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("Mensaje de log enviado exitosamente");
+            } else {
+                console.error("Error al enviar mensaje de log:", response.status);
+            }
+        })
+        .catch(error => {
+            console.error("Error al enviar mensaje de log:", error);
+        });
+    } else {
+        alert("Error editando el viaje");
+    }
 
     listarViajes();
-
-
 }
+
 function mostrarFormulario() {
     let formulario = document.getElementById("formulario").style.visibility = "visible";
 }
