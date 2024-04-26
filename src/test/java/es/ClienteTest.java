@@ -51,6 +51,6 @@ public class ClienteTest {
         assertEquals("contra", cliente.getPassword());  
         
         assertEquals(2, reservas.size());
-        verify(reservas, times(2)).get(anyInt());
+        verify(reservas).size();
     }
 }

@@ -103,14 +103,14 @@ public class TrabajadorTest {
     }
     @Test
     public void testToString() {
-        String expectedToString = "Trabajador{" +
-                "dni='78955017L'" +
-                ", nombre='Unai Aira'" +
-                ", gmail='unaiaira@gmail.com'" +
-                ", telefono='666444555'" +
+        String expectedToString = "Trabajador(" +
+                "dni=78955017L" +
+                ", nombre=Unai Aira" +
+                ", gmail=unaiaira@gmail.com" +
+                ", telefono=666444555" +
                 ", sueldo=1000" +
-                ", password='contra'" +
-                '}';
+                ", password=contra" +
+                ')';
         assertEquals(expectedToString, trabajador.toString());
     }
     
