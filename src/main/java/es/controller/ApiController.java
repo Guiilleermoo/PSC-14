@@ -14,12 +14,14 @@ public class ApiController {
     @PostMapping("/api/registrarCambios")
     public void registrarCambios(@RequestBody String mensaje) {
         String nombreArchivo = "logCambios.txt";
+        String[] mensajeArray = mensaje.split("\"");
+        String mensajeFinal = mensajeArray[3].toString();
         
         try {
             FileWriter fileWriter = new FileWriter(nombreArchivo, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            bufferedWriter.write(mensaje + "\n");
+            bufferedWriter.write(mensajeFinal + "\n");
 
             bufferedWriter.close();
         } catch (IOException e) {

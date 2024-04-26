@@ -118,12 +118,14 @@ let editarViaje = async (id) => {
     document.getElementById("asientosDisponibles").value = viaje.asientosDisponibles;
     document.getElementById("oferta").value = viaje.oferta;
 
-    let btnModificar = document.getElementById("registrar");
+    aplicarActualizacion(idEditar);
+
+    /*let btnModificar = document.getElementById("registrar");
 
     btnModificar.addEventListener("click", evento => {
 
     aplicarActualizacion(idEditar);
-});
+});*/
 }
 
 function obtenerValorCookie(nombre) {
@@ -167,7 +169,7 @@ let aplicarActualizacion = async (id) => {
     });
     
     if(p.ok){
-        const gmail = obtenerValorCookie("gmail");
+        const gmail = obtenerValorCookie("email");
 
         const response = await fetch('http://localhost:8080/sql/buscarTrabajador/' + gmail, {
             method: 'GET',
@@ -177,7 +179,6 @@ let aplicarActualizacion = async (id) => {
         });
 
         const trabajador = await response.json();
-        console.log(trabajador);
 
         const mensaje = "El trabajador " + trabajador.nombre + " ha modificado el viaje con id " + id;
 
