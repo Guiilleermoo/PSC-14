@@ -1,34 +1,8 @@
-html{
-    background-color: #6bb8ef;
-}
-
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #333;
     
 }
-.form-body{
-    visibility: hidden;
-    margin-left: 20%;
-    margin-right: 20%;
-    
-}
-.titulo{
-    text-align: center;
-    font-family: "Permanent Marker", cursive;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
-    color: rgb(6, 61, 129);
-    background-color:rgb(86, 158, 247);
-    border: 4px solid rgb(86, 158, 247);
-    border-radius: 15px;
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-}
-
 
 .tabla1{
     text-align: left;
@@ -37,21 +11,27 @@ body {
     border-spacing: 0;
     border: 2px solid #b9935a;
     width: 80%;
-    margin-left: 10%;
+    margin-left: 30%;
     margin-top: 12%;
     border-radius: .25rem;
 }
-.derecha{
+#derecha{
     display: inline-block;
-    width: 69%;
-    vertical-align: top;
-    
+    margin-left: 10%;
+    margin-top: 10%;
+
 }
 .izquierda{
     display: inline-block;
     vertical-align: top;
     width: 30%;
     
+}
+.logo{
+    display: inline-block;
+    margin-left: 10%;
+    vertical-align: top;
+    margin-top: 5%;
 }
 
 thead tr:first-child {
@@ -116,100 +96,48 @@ td:last-child {
     text-align: right;
     padding-right: 10px;
 }
+#boton{
+    margin-bottom: 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 20px;
 
-.button {
-    color: #aaa;
-    cursor: pointer;
-    vertical-align: middle;
-    margin-top: -4px;
+}
+#persona {
+    border-radius: 50px;
+    background-color: #c9d5dc;
+    color: rgb(76, 155, 235);
+    border: 2px solid rgb(76, 155, 235);
+    width: 80px;
 }
 
-.material-icons button check_circle:hover {
-    color: #0adf23;
-}
-
-.delete:hover {
-    color: #dc2a2a;
-}
-.form-content input[type=text], .form-content input[type=password], .form-content input[type=date], .form-content input[type=number], .form-content select {
-    width: 100%;
-    padding: 9px 20px;
-    text-align: left;
-    border: 0;
-    outline: 0;
-    border-radius: 6px;
-    background-color: #e8e8e8;
-    font-size: 15px;
-    font-weight: 300;
-    color: #8D8D8D;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    margin-top: 16px;
-}
-
-.form-holder {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 100vh;
-}
-
-.form-holder .form-content {
-    position: relative;
-    text-align: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    align-items: center;
-    padding: 60px;
-}
-
-.form-content .form-items {
-    border: 3px solid #000000;
-    padding: 40px;
+.dropdown {
     display: inline-block;
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
     width: 100%;
-    min-width: 540px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    text-align: left;
-    -webkit-transition: all 0.4s ease;
-    transition: all 0.4s ease;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
-.form-content h3 {
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
     color: #000000;
-    text-align: left;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 5px;
+    text-align: center;
+    font-weight: 800;
+    padding: 5px;
+    text-decoration: none;
 }
 
-.form-content h3.form-title {
-    margin-bottom: 30px;
-}
-
-.form-content p {
-    color: #000000;
-    text-align: left;
-    font-size: 17px;
-    font-weight: 300;
-    line-height: 20px;
-    margin-bottom: 30px;
-}
-
-.check{
-    padding-top: 15px;
-}
-.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
-    color: #000000;
-    
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #48acea;
 }
