@@ -100,6 +100,7 @@ public class TrabajadorTest {
 
         // Verificar que los hash codes de los trabajadores ya no sean iguales
         assertNotEquals(trabajador1.hashCode(), trabajador2.hashCode());
+
     }
     @Test
     public void testToString() {
