@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import es.model.Cliente;
 import es.model.Favorito;
-import es.model.Trabajador;
+
 import es.model.Viaje;
 
 import static org.junit.jupiter.api.Assertions.*;

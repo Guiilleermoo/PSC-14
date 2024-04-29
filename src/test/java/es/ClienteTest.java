@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.anyInt;
+
 
 import java.util.List;
 
@@ -18,8 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import es.model.Cliente;
 import es.model.Reserva;
-import es.model.Trabajador;
-import es.model.Viaje;
+
 
 public class ClienteTest {
 

@@ -3,7 +3,7 @@ package es;
 import org.junit.jupiter.api.Test;
 
 import es.model.Cliente;
-import es.model.Favorito;
+
 import es.model.Reserva;
 import es.model.Viaje;
 
