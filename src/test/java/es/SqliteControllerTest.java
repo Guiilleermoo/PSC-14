@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -174,7 +176,33 @@ public class SqliteControllerTest {
 
         // Verificar que se devuelve el mensaje esperado
         assertEquals("trabajador ha sido guardado correctamente", response.getBody());
-    }    
+    }   
+    
+    @Test
+    public void testCrearTrabajadorError() {
+        // Datos de prueba
+        String jsonData = "{\"dni\": \"123456789\", \"nombre\": \"Unai\", \"gmail\": \"unaiaira@gmail.com\", \"telefono\": \"666444555\", \"sueldo\": 2000}";
+
+        // Mock de la instancia de Trabajador
+        Trabajador trabajador = new Trabajador();
+        trabajador.setDni("123456789");
+        trabajador.setNombre("Unai");
+        trabajador.setGmail("unaiaira@gmail.com");
+        trabajador.setTelefono("666444555");
+        trabajador.setSueldo(2000);
+
+        // Simular el guardado del trabajador
+        when(trabajadorRepository.save(trabajador)).thenThrow(new RuntimeException("Error en la base de datos"));
+
+        // Llamar al método de creación de trabajador
+        ResponseEntity<String> response = sqliteController.crearTrabajador(jsonData);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.INTERNAL_SERVER_ERROR
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+        // Verificar que se devuelve el mensaje esperado
+        assertEquals("Error al crear el trabajador -> Error en la base de datos", response.getBody());
+    }
 
     @Test
     public void testEliminarTrabajadorExistente() {
@@ -424,11 +452,31 @@ public class SqliteControllerTest {
         // Datos de prueba
         String jsonData = "{\"dni\": \"123456789\", \"nombre\": \"Unai\", \"gmail\": \"unaiaira@gmail.com\", \"telefono\": \"666444555\", \"residencia\": \"Deusto\", \"contrasena\": \"password\"}";
 
+        JSONObject data;
+        Cliente t = new Cliente();
+        try {
+            data = new JSONObject(jsonData);
+            t.setDni(data.getString("dni"));
+            t.setNombre(data.getString("nombre"));   
+            t.setGmail(data.getString("gmail"));
+            t.setTelefono(data.getString("telefono"));
+            t.setResidencia(data.getString("residencia"));
+            t.setPassword(data.getString("contrasena"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // Simular un error en el repositorio
-        when(clienteRepository.save(new Cliente())).thenThrow(new RuntimeException("Error en el repositorio"));
+        when(clienteRepository.save(t)).thenThrow(new RuntimeException("Error en el repositorio"));
 
         // Llamar al método del controlador
-        sqliteController.crearCliente(jsonData);
+        ResponseEntity<String> response = sqliteController.crearCliente(jsonData);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.INTERNAL_SERVER_ERROR
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+        // Verificar que se devuelve el mensaje esperado
+        assertEquals("Error al crear el cliente -> Error en el repositorio", response.getBody());
     }
 
 
