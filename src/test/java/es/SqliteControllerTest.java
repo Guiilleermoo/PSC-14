@@ -47,6 +47,110 @@ public class SqliteControllerTest {
 
     //TEST DE TRABAJADOR
     @Test
+    public void testGetTrabajadorExistente() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+        String password = "password";
+        Trabajador trabajador = new Trabajador();
+        trabajador.setGmail(gmail);
+        trabajador.setPassword(password);
+
+        // Simular la búsqueda del tarbajador en el repositorio
+        when(trabajadorRepository.findByGmail(gmail)).thenReturn(trabajador);
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Trabajador> response = sqliteController.getTrabajador(gmail, password);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        // Verificar que se devuelve el cliente esperado
+        assertEquals(trabajador, response.getBody());
+    }
+
+    @Test
+    public void testGetTrabajadorNoExistente() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+        String password = "password";
+
+        // Simular que el cliente no existe en el repositorio
+        when(trabajadorRepository.findByGmail(gmail)).thenReturn(null);
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Trabajador> response = sqliteController.getTrabajador(gmail, password);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.NOT_FOUND
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetTrabajadorError() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+        String password = "password";
+
+        // Simular un error en el repositorio
+        when(trabajadorRepository.findByGmail(gmail)).thenThrow(new RuntimeException("Error en el repositorio"));
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Trabajador> response = sqliteController.getTrabajador(gmail, password);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.INTERNAL_SERVER_ERROR
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetTrabajadorDniExistente() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+        Trabajador trabajador = new Trabajador();
+        trabajador.setGmail(gmail);
+
+        // Simular la búsqueda del tarbajador en el repositorio
+        when(trabajadorRepository.findByGmail(gmail)).thenReturn(trabajador);
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Trabajador> response = sqliteController.getTrabajador(gmail);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        // Verificar que se devuelve el cliente esperado
+        assertEquals(trabajador, response.getBody());
+    }
+
+    @Test
+    public void testGetTrabajadorDniNoExistente() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+
+        // Simular que el cliente no existe en el repositorio
+        when(trabajadorRepository.findByGmail(gmail)).thenReturn(null);
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Trabajador> response = sqliteController.getTrabajador(gmail);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.NOT_FOUND
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetTrabajadorDniError() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+
+        // Simular un error en el repositorio
+        when(trabajadorRepository.findByGmail(gmail)).thenThrow(new RuntimeException("Error en el repositorio"));
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Trabajador> response = sqliteController.getTrabajador(gmail);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.INTERNAL_SERVER_ERROR
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
     public void testCrearTrabajador() {
         // Datos de prueba
         String jsonData = "{\"dni\": \"123456789\", \"nombre\": \"Unai\", \"gmail\": \"unaiaira@gmail.com\", \"telefono\": \"666444555\", \"sueldo\": 2000}";
@@ -189,6 +293,57 @@ public class SqliteControllerTest {
         // Verificar que se devuelve un ResponseEntity con HttpStatus.INTERNAL_SERVER_ERROR
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+
+    @Test
+    public void testGetClienteGmailExistente() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+        Cliente cliente = new Cliente();
+        cliente.setGmail(gmail);
+
+        // Simular la búsqueda del cliente en el repositorio
+        when(clienteRepository.findByGmail(gmail)).thenReturn(cliente);
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Cliente> response = sqliteController.getCliente(gmail);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        // Verificar que se devuelve el cliente esperado
+        assertEquals(cliente, response.getBody());
+    }
+
+    @Test
+    public void testGetClienteGmailNoExistente() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+
+        // Simular que el cliente no existe en el repositorio
+        when(clienteRepository.findByGmail(gmail)).thenReturn(null);
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Cliente> response = sqliteController.getCliente(gmail);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.NOT_FOUND
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetClienteGmailError() {
+        // Datos de prueba
+        String gmail = "unaiaira@gmail.com";
+
+        // Simular un error en el repositorio
+        when(clienteRepository.findByGmail(gmail)).thenThrow(new RuntimeException("Error en el repositorio"));
+
+        // Llamar al método de tu controlador
+        ResponseEntity<Cliente> response = sqliteController.getCliente(gmail);
+
+        // Verificar que se devuelve un ResponseEntity con HttpStatus.INTERNAL_SERVER_ERROR
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
 
     @Test
     public void testEliminarClienteExistente() {

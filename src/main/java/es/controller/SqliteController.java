@@ -43,9 +43,10 @@ public class SqliteController {
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarTrabajador/{gmail}/{password}")
         public ResponseEntity<Trabajador> getTrabajador(@PathVariable String gmail, @PathVariable String password) {
-        Trabajador t = trabajadorRepository.findByGmail(gmail);
+        
         
         try {
+            Trabajador t = trabajadorRepository.findByGmail(gmail);
             if (t != null && t.getPassword().equals(password) ) {
                 return new ResponseEntity<>(t, HttpStatus.OK);
             }else {
@@ -60,9 +61,9 @@ public class SqliteController {
     @CrossOrigin("http://127.0.0.1:5500")
     @GetMapping("/buscarTrabajador/{gmail}")
         public ResponseEntity<Trabajador> getTrabajador(@PathVariable String gmail) {
-            Trabajador t = trabajadorRepository.findByGmail(gmail);
         
             try {
+                Trabajador t = trabajadorRepository.findByGmail(gmail);
                 if (t != null &&t.getGmail().equals(gmail) ) {
                     return new ResponseEntity<>(t, HttpStatus.OK);
                 }else {
