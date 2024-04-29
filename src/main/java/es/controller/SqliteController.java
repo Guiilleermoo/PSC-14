@@ -90,7 +90,7 @@ public class SqliteController {
             trabajadorRepository.save(t);
             return new ResponseEntity<>("trabajador ha sido guardado correctamente", HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Error al crear el trabajador -> %s", e.getMessage()));
+            return new ResponseEntity<>("Error al crear el trabajador -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -181,7 +181,7 @@ public class SqliteController {
             clienteRepository.save(t);
             return new ResponseEntity<>("cliente ha sido guardado correctamente", HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Error al crear el cliente -> %s", e.getMessage()));
+            return new ResponseEntity<>("Error al crear el cliente -> " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -284,18 +284,7 @@ public class SqliteController {
 
 
     // FUNCIONES RESERVA
-    @CrossOrigin("http://127.0.0.1:5500")
-    @GetMapping("/buscarReserva/{dni}")
-    public ResponseEntity<Viaje> getReserva(@PathVariable String dni) {
-        try {
-           //Reserva reserva =reservaRepository.findByDni(dni);
-            return new ResponseEntity<>(HttpStatus.OK);
-            
-         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
+    
     @CrossOrigin("http://127.0.0.1:5500")
     @PostMapping("/crearReserva/{idViaje}")
     public ResponseEntity<String> crearReserva(@PathVariable Integer idViaje, @RequestBody String jsonData) {

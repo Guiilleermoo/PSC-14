@@ -71,6 +71,8 @@ public class TrabajadorTest {
         // Verificar que los trabajadores ya no sean iguales
         assertFalse(trabajador1.equals(trabajador2));
         assertFalse(trabajador2.equals(trabajador1));
+
+        assertNotEquals(trabajador1, trabajador2);
     }
 
     @Test
