@@ -59,8 +59,5 @@ class ApiControllerTest {
         // Verificar si el mensaje se ha registrado correctamente en el archivo de log
         String contenidoArchivo = new String(Files.readAllBytes(Paths.get(LOG_FILE_PATH)));
         assertTrue(contenidoArchivo.contains("Este es un mensaje de prueba."), "El mensaje se registró correctamente en el archivo de log.");
-        
-        // Limpiar el contenido del archivo después de la verificación
-        Files.write(Paths.get(LOG_FILE_PATH), new byte[0]);
     }
 }
