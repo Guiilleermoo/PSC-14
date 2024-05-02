@@ -25,3 +25,16 @@
     ```bash
     mvn clean
     ```
+#### DATOS DE PRUEBA
+1. Para hacer login con el trabajador:
+    ```bash
+    DNI: 21121546C
+    Email: trabajador1@deustoadvisor.es
+    Password: trabajador123
+    ```
+2. Para hacer login con el cliente:
+    ```bash
+    DNI: 14235378L
+    Email: prueba@gmail.com
+    Password: prueba123
+    ```
