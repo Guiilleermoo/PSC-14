@@ -1,38 +1,55 @@
-package es;
+package es.testUnitarios;
 
 import org.junit.jupiter.api.Test;
 
 import es.model.Cliente;
-import es.model.Favorito;
 
+import es.model.Reserva;
 import es.model.Viaje;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class FavoritoTest {
+public class ReservaTest {
 
     @Test
-    public void testFavoritoConstructorAndGetters() {
-        // Crear ejemplos de las clases relacionadas
+    public void testReservaConstructorAndGetters() {
+        // crear ejemplos de las clases relacionadas
         Integer id = 1;
         Viaje viajeMock = mock(Viaje.class);
         Cliente clienteMock = mock(Cliente.class);
+        Integer numPlazas = 5;
 
-        // Crear un objeto de la clase favorito
-        Favorito favorito = new Favorito();
-        favorito.setId(id);
-        favorito.setViaje(viajeMock);
-        favorito.setCliente(clienteMock);
-        System.out.println(favorito);
+        // crear un objeto de la clase reserva
+        Reserva reserva = new Reserva();
+        reserva.setId(id);
+        reserva.setViaje(viajeMock);
+        reserva.setCliente(clienteMock);
+        reserva.setNumPlazas(numPlazas);
 
-        // Verificar que el constructor y los getters funcionan correctamente
-        assertEquals(id, favorito.getId());
-        assertEquals(viajeMock, favorito.getViaje());
-        assertEquals(clienteMock, favorito.getCliente());
+        // verificar que el constructor y los getters funcionan correctamente
+        assertEquals(id, reserva.getId());
+        assertEquals(viajeMock, reserva.getViaje());
+        assertEquals(clienteMock, reserva.getCliente());
+        assertEquals(numPlazas, reserva.getNumPlazas());
+    }
+    @Test
+    public void testToString() {
+        // Crear una instancia de Reserva con datos de ejemplo
+        Reserva reserva = new Reserva();
+        reserva.setId(1);
+        reserva.setViaje(new Viaje());
+        reserva.setCliente(new Cliente());
+        reserva.setNumPlazas(2);
+
+        // Definir la representación esperada de la reserva como una cadena
+        String expectedToString = "Reserva(id=1, viaje=Viaje(id=0, origen=null, destino=null, fecha=null, duracion=0, precio=0.0, oferta=0, empresa=null, asientosTotales=0, asientosDisponibles=0), cliente=Cliente(dni=null, nombre=null, gmail=null, telefono=null, residencia=null, password=null), numPlazas=2)";
+
+        // Verificar que el método toString() devuelve la representación esperada
+        assertEquals(expectedToString, reserva.toString());
     }
 
-    @Test
+     @Test
     public void testHashCode() {
         // Crear dos viajes con los mismos atributos
         Viaje viaje1 = new Viaje();
@@ -77,24 +94,26 @@ public class FavoritoTest {
         cliente2.setPassword("contra");
 
 
-        Favorito favorito1 = new Favorito();
-        favorito1.setId(1);
-        favorito1.setViaje(viaje1);
-        favorito1.setCliente(cliente1);
+        Reserva reserva1 = new Reserva();
+        reserva1.setId(1);
+        reserva1.setViaje(viaje1);
+        reserva1.setCliente(cliente1);
+        reserva1.setNumPlazas(2);
 
-        Favorito favorito2 = new Favorito();
-        favorito2.setId(1);
-        favorito2.setViaje(viaje2);
-        favorito2.setCliente(cliente2);
+        Reserva reserva2 = new Reserva();
+        reserva2.setId(1);
+        reserva2.setViaje(viaje1);
+        reserva2.setCliente(cliente1);
+        reserva2.setNumPlazas(2);
 
         // Verificar que los hash codes de los trabajadores sean iguales
-        assertEquals(favorito1.hashCode(), favorito2.hashCode());
+        assertEquals(reserva1.hashCode(), reserva2.hashCode());
 
         // Cambiar un atributo de uno de los trabajadores
-        favorito2.setId(2);
+        reserva2.setNumPlazas(3);
 
         // Verificar que los hash codes de los trabajadores ya no sean iguales
-        assertNotEquals(favorito1.hashCode(), favorito2.hashCode());
+        assertNotEquals(reserva1.hashCode(), reserva2.hashCode());
 
     }
 
@@ -144,25 +163,27 @@ public class FavoritoTest {
         cliente2.setPassword("contra");
 
 
-        Favorito favorito1 = new Favorito();
-        favorito1.setId(1);
-        favorito1.setViaje(viaje1);
-        favorito1.setCliente(cliente1);
+        Reserva reserva1 = new Reserva();
+        reserva1.setId(1);
+        reserva1.setViaje(viaje1);
+        reserva1.setCliente(cliente1);
+        reserva1.setNumPlazas(2);
 
-        Favorito favorito2 = new Favorito();
-        favorito2.setId(1);
-        favorito2.setViaje(viaje2);
-        favorito2.setCliente(cliente2);
+        Reserva reserva2 = new Reserva();
+        reserva2.setId(1);
+        reserva2.setViaje(viaje1);
+        reserva2.setCliente(cliente1);
+        reserva2.setNumPlazas(2);
 
         // Verificar que los dos trabajadores sean iguales
-        assertTrue(favorito1.equals(favorito2));
-        assertTrue(favorito2.equals(favorito1));
+        assertTrue(reserva1.equals(reserva2));
+        assertTrue(reserva2.equals(reserva1));
 
         // Cambiar un atributo de uno de los trabajadores
-        favorito2.setId(2);
+        reserva2.setId(2);
 
         // Verificar que los trabajadores ya no sean iguales
-        assertFalse(favorito1.equals(favorito2));
-        assertFalse(favorito2.equals(favorito1));
+        assertFalse(reserva1.equals(reserva2));
+        assertFalse(reserva2.equals(reserva1));
     }
 }

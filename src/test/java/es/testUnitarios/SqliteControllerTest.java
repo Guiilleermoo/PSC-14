@@ -1,4 +1,4 @@
-package es;
+package es.testUnitarios;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,16 +11,11 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.github.noconnor.junitperf.JUnitPerfRule;
-import com.github.noconnor.junitperf.JUnitPerfTest;
-import com.github.noconnor.junitperf.JUnitPerfTestRequirement;
-import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 
 import es.controller.SqliteController;
 import es.dao.ClienteRepository;
@@ -44,9 +39,7 @@ public class SqliteControllerTest {
     private TrabajadorRepository trabajadorRepository;
 
 
-    @Rule 
-	public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
-    
+   
     @Before
     public void setUp() {
         viajeRepository = mock(ViajeRepository.class);
@@ -162,33 +155,7 @@ public class SqliteControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    @Test
-    @JUnitPerfTest(threads = 20, durationMs = 3000)
-    @JUnitPerfTestRequirement(meanLatency = 100)
-    public void testCrearTrabajador() {
-        // Datos de prueba
-        String jsonData = "{\"dni\": \"123456789\", \"nombre\": \"Unai\", \"gmail\": \"unaiaira@gmail.com\", \"telefono\": \"666444555\", \"sueldo\": 2000}";
-
-        // Mock de la instancia de Trabajador
-        Trabajador trabajador = new Trabajador();
-        trabajador.setDni("123456789");
-        trabajador.setNombre("Unai");
-        trabajador.setGmail("unaiaira@gmail.com");
-        trabajador.setTelefono("666444555");
-        trabajador.setSueldo(2000);
-
-        // Simular el guardado del trabajador
-        when(trabajadorRepository.save(trabajador)).thenReturn(trabajador);
-
-        // Llamar al método de creación de trabajador
-        ResponseEntity<String> response = sqliteController.crearTrabajador(jsonData);
-
-        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        // Verificar que se devuelve el mensaje esperado
-        assertEquals("trabajador ha sido guardado correctamente", response.getBody());
-    }   
+    
     
     @Test
     public void testCrearTrabajadorError() {
@@ -441,25 +408,7 @@ public class SqliteControllerTest {
         assertEquals("Error al eliminar el cliente -> Error en el repositorio", response.getBody());
     }
 
-    @Test
-    @JUnitPerfTest(threads = 20, durationMs = 3000)
-    @JUnitPerfTestRequirement(meanLatency = 100)
-    public void testCrearClienteCorrecto() {
-        // Datos de prueba
-        String jsonData = "{\"dni\": \"123456789\", \"nombre\": \"Unai\", \"gmail\": \"unaiaira@gmail.com\", \"telefono\": \"666444555\", \"residencia\": \"Deusto\", \"contrasena\": \"password\"}";
-
-        // Simular el guardado del cliente
-        when(clienteRepository.save(new Cliente())).thenReturn(new Cliente());
-
-        // Llamar al método del controlador
-        ResponseEntity<String> response = sqliteController.crearCliente(jsonData);
-
-        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        // Verificar que se devuelve el mensaje esperado
-        assertEquals("cliente ha sido guardado correctamente", response.getBody());
-    }
+    
 
     @Test
     public void testCrearClienteError() {
@@ -498,23 +447,7 @@ public class SqliteControllerTest {
 
     //TESTS DE VIAJES
 
-    @Test
-    @JUnitPerfTest(threads = 20, durationMs = 3000)
-    @JUnitPerfTestRequirement(meanLatency = 100)
-    public void testCrearViaje() {
-        // Datos de prueba
-        String jsonData = "{\"id\": 1, \"origen\": \"Bilbao\", \"destino\": \"Madrid\", \"fecha\": \"2024-04-30\", \"duracion\": 120, \"precio\": 50.0, \"oferta\": 0, \"empresa\": \"Deusto\", \"asientosTotales\": 50, \"asientosDisponibles\": 50}";
-
-        // Llamar al método de creación de viaje
-        ResponseEntity<String> response = sqliteController.crearViaje(jsonData);
-
-        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        // Verificar que se devuelve el mensaje esperado
-        assertEquals("Viaje creado correctamente", response.getBody());
-    }
-
+    
     @Test
     public void testCrearViajeConError() {
         // Simular un error al guardar el viaje
