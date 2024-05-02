@@ -1,13 +1,8 @@
 package es.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -19,9 +14,10 @@ public class Cliente {
     protected String gmail=null;
     protected String telefono=null;
     protected String residencia=null;
+    protected String password=null;
     
-    @OneToMany(mappedBy = "cliente")
-    @JsonIgnore
-    private List<Reserva> reservas = new ArrayList<>();
-    
+    public Cliente orElse(Object object) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'orElse'");
+    }
 }

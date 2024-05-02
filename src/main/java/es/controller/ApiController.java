@@ -1,23 +1,32 @@
 package es.controller;
 
-import java.time.LocalDateTime;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import es.model.*;
 
 @RestController
 public class ApiController {
 
-    @RequestMapping("/test")
-    public String test() {
-        return "Hello World";
+    @PostMapping("/api/registrarCambios")
+    public void registrarCambios(@RequestBody String mensaje) {
+        String nombreArchivo = "logCambios.txt";
+        String[] mensajeArray = mensaje.split("\"");
+        String mensajeFinal = mensajeArray[3].toString();
+        
+        try {
+            FileWriter fileWriter = new FileWriter(nombreArchivo, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write(mensajeFinal + "\n");
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Error al escribir en el archivo de log" + e.getMessage());
+        }
     }
- 
 
 }

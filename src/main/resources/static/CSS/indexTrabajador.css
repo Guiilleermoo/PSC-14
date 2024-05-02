@@ -1,0 +1,143 @@
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    
+}
+
+.tabla1{
+    text-align: left;
+    line-height: 40px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid #b9935a;
+    width: 80%;
+    margin-left: 30%;
+    margin-top: 12%;
+    border-radius: .25rem;
+}
+#derecha{
+    display: inline-block;
+    margin-left: 10%;
+    margin-top: 10%;
+
+}
+.izquierda{
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    
+}
+.logo{
+    display: inline-block;
+    margin-left: 10%;
+    vertical-align: top;
+    margin-top: 5%;
+}
+
+thead tr:first-child {
+    background: #b9935a;
+    color: #fff;
+    border: none;
+    
+}
+.tituloTabla{
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+    text-align: center;
+}
+tr{
+    text-align: left;
+    margin-left: 5px;
+    
+}
+th {
+    padding-left: 10px;
+    font-weight: 500;
+    
+}
+td{
+    padding-left: 10px;
+    
+}
+.Especial{
+    font-weight: 700;
+}
+.titulo2{
+    background-color: #96305a;
+}
+.indice{
+    padding: 50px;
+    text-align: center;
+
+}
+.tabla2 td{
+    text-align: center;
+}
+
+thead tr:last-child th {
+    border-bottom: 3px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f2f2f2;
+    cursor: default;
+}
+
+tbody tr:last-child td {
+    border: none;
+}
+
+tbody td {
+    border-bottom: 1px solid #ddd;
+}
+
+td:last-child {
+    text-align: right;
+    padding-right: 10px;
+}
+#boton{
+    margin-bottom: 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 20px;
+
+}
+#persona {
+    border-radius: 50px;
+    background-color: #c9d5dc;
+    color: rgb(76, 155, 235);
+    border: 2px solid rgb(76, 155, 235);
+    width: 80px;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    color: #000000;
+    text-align: center;
+    font-weight: 800;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #48acea;
+}

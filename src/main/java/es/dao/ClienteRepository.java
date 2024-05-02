@@ -10,5 +10,6 @@ import es.model.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, String>{
     void deleteByDni(String dni);
     Cliente findByDni(String dni);
+    Cliente findByGmail(String gmail);
     
 }
