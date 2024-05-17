@@ -21,7 +21,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     
         <dependency.locations.enabled>false</dependency.locations.enabled>
-
+        <doxygen.config.file>${basedir}/src/main/resources/Doxyfile</doxygen.config.file>
     </properties>
 
     <dependencies>
@@ -130,7 +130,50 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.11.0</version>
 			</plugin>
+            <plugin>
+			<groupId>com.soebes.maven.plugins</groupId>
+			<artifactId>doxygen-maven-plugin</artifactId>
+			<version>1.1.0</version>
+			<configuration>
+				<configurationFile>${doxygen.config.file}</configurationFile>
+			</configuration>
+		</plugin>
+		<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/docs</outputDirectory>
+								<resources>          
+									<resource>
+									<directory>${basedir}/target/doxygen/html</directory>
+									<filtering>true</filtering>
+									</resource>
+								</resources>              
+						</configuration>            
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+				<filesets>
+					<fileset>
+						<directory>${basedir}/docs</directory>
+					</fileset>
+				</filesets>
+				</configuration>
+			</plugin>
 		</plugins>
+        
 	</build>
 
 </project>
