@@ -69,8 +69,60 @@ async function marcarFavoritos() {
     });
 }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('filtrarFechas').addEventListener('click', filtrarPorFechas);
+    });
 
+    async function filtrarPorFechas() {
+        let fechaInicio = new Date(document.getElementById('fechaInicio').value);
+        let fechaFin = new Date(document.getElementById('fechaFin').value);
+        
+      
+        const peticion = await fetch('http://localhost:8080/sql/viajes', {
 
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+            
+        });
+        const viajes = await peticion.json();
+        
+        let viajesFiltrados = viajes.filter(viaje => {
+            let fechaViaje = new Date(viaje.fecha);
+            return fechaViaje >= fechaInicio && fechaViaje <= fechaFin;
+        });
+        console.log(viajes);
+        console.log(viajesFiltrados);
+        let contenidoTabla = "";
+        for (let viaje of viajesFiltrados) {
+            let contenidoFila = `<tr>
+                <td>${viaje.id}</td>
+                <td>${viaje.empresa}</td>
+                <td>${viaje.origen}</td>
+                <td>${viaje.destino}</td>
+                <td>${viaje.fecha}</td>
+                <td>${viaje.duracion}</td>
+                <td>${viaje.precio}</td>
+                <td>${viaje.asientosTotales}</td>
+                <td>${viaje.asientosDisponibles}</td>
+                <td>${viaje.oferta}</td>
+                <td>
+                <i onClick="compararViaje(${viaje.id}) "class="material-icons button search">search</i>
+                </td>
+                <td>
+                <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+                </td>
+                <td>
+                <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
+                </td>
+            </tr>
+            ` 
+            contenidoTabla += contenidoFila;
+        }
+        document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
+    }
+   
 let listarViajesOrdenados2 = async () => {
 
     // Paso 1: Obtener los datos de la tabla HTML
