@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let comprobarLogin = async () => {
         const gmail = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        console.log("Gmail:1", gmail);
-        console.log("Password:1", password);
+        console.log("Gmail:", gmail);
+        console.log("Password:", password);
         if (gmail.endsWith("@deustoadvisor.es")) {
             const respuesta = await fetch('http://localhost:8080/sql/buscarTrabajador/' + gmail + '/' +  password,  {     
                 method: 'GET',
