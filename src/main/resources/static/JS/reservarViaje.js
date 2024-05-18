@@ -36,6 +36,9 @@ let listarViajes = async () => {
             <td>
             <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
             </td>
+            <td>
+            <i onClick="compartir(${viaje.id})"class="material-icons button check_circle">share</i>
+            </td>
         </tr>
         ` 
         contenidoTabla += contenidoFila;
@@ -77,7 +80,11 @@ async function marcarFavoritos() {
         let fechaInicio = new Date(document.getElementById('fechaInicio').value);
         let fechaFin = new Date(document.getElementById('fechaFin').value);
         
-      
+        if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+            console.log('Fecha inválida');
+            return; // Salir de la función si las fechas no son válidas
+        }
+    
         const peticion = await fetch('http://localhost:8080/sql/viajes', {
 
         method: 'GET',
@@ -115,12 +122,26 @@ async function marcarFavoritos() {
                 </td>
                 <td>
                 <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
+                </td> 
+                <td>
+                <i onClick="compartir(${viaje.id})"class="material-icons button check_circle">share</i>
                 </td>
+          
             </tr>
             ` 
             contenidoTabla += contenidoFila;
         }
-        document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
+        let tabla = document.querySelector("#tabla");
+            if (tabla) {
+                let tbody = tabla.querySelector("tbody");
+                if (!tbody) {
+                    tbody = document.createElement("tbody");
+                    tabla.appendChild(tbody);
+                }
+                tbody.outerHTML = contenidoTabla;
+            } else {
+                console.error("No se pudo encontrar la tabla con el ID 'tabla'");
+            }
     }
    
 let listarViajesOrdenados2 = async () => {
@@ -171,6 +192,9 @@ let listarViajesOrdenados2 = async () => {
                 </td>
                 <td>
                 <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
+                </td>
+                <td>
+                <i onClick="compartir(${viaje.id})"class="material-icons button check_circle">share</i>
                 </td>
             </tr>
             ` 
