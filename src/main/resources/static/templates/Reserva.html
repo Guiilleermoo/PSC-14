@@ -15,9 +15,19 @@
   </head>
   <body>
     <div class="row" id="botonFiltro">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Desde: </h5>
+            </div>
+            <div class="col-md-8">
+                <h5>Hasta: </h5>
+            </div>
+        </div>
+        
         <div class="col-md-4">
             <input class="form-control" type="date" id="fechaInicio" placeholder="Fecha de inicio" required>
         </div>
+       
         <div class="col-md-4">
             <input class="form-control" type="date" id="fechaFin" placeholder="Fecha de fin" required>
         </div>
@@ -28,7 +38,7 @@
     <table id="tabla">
       <thead>
         <tr class="tituloTabla">
-          <th colspan="13">Viajes disponibles</th>
+          <th colspan="14">Viajes disponibles</th>
         </tr>
         <tr class="indice">
           <th class="numero">Id</th>
