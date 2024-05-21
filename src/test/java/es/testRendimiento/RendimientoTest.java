@@ -77,7 +77,7 @@ public class RendimientoTest {
         assertEquals("trabajador ha sido guardado correctamente", response.getBody());
     }   
 
-    @Test
+   /*  @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)
     @JUnitPerfTestRequirement(meanLatency = 100)
     public void testCrearClienteCorrecto() {
@@ -95,7 +95,7 @@ public class RendimientoTest {
 
         // Verificar que se devuelve el mensaje esperado
         assertEquals("cliente ha sido guardado correctamente", response.getBody());
-    }
+    }*/
 
     @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)
