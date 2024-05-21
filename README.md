@@ -9,11 +9,25 @@
     mvn compile
     mvn package
     ```
-2. Para iniciar el servidor:
+2. Ejecutamos el script que crea la BD
+    ```bash
+    mysql -u root -p 
+    ```
+3. Ponemos la contraseña que tengamos con el usuario root
+4. Ejecutamos el siguiente comando
+     ```bash
+    source sql/schema-BD.sql
+    ```
+5. Se ejecutara el script y para salir simplemente
+      ```bash
+    exit
+    ```
+
+6. Para iniciar el servidor:
     ```bash
     mvn spring-boot:run
     ```
-3. El servidor se iniciará correctamente y el `index.html` será visible en [localhost:8080/templates/index.html](http://localhost:8080/templates/index.html). A partir de este punto se podrá navegar por los distintos archivos `.html` desde el navegador.
+7. El servidor se iniciará correctamente y el `index.html` será visible en [localhost:8080/templates/index.html](http://localhost:8080/templates/index.html). A partir de este punto se podrá navegar por los distintos archivos `.html` desde el navegador.
 
 #### TESTS
 1. Para ejecutar los tests, que han sido implementados con JUnit. Ademas hemos incluido mockito y jacoco. Esta ultima herramienta te permite visualizar la cobertura de instrucciones y ramas (El index.html que genera jacoco se encuentra en rutaDondeTengasGuardadoElProyecto\PSC-14\target\site\jacoco):
