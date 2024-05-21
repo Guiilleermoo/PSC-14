@@ -10,7 +10,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Viaje {
-   
+ 
     @Id
     private int id;
     protected String origen=null;
@@ -25,15 +25,27 @@ public class Viaje {
 
     
    
-  
+  /**
+
+     * @return Este metodo devuelve el origen del viaje
+     */
     public String getOrigen() {
         return origen;
     }
-
+/**
+   
+    
+     * @return Este metodo devuelve los asientos disponibles del viaje.
+     */
     public int getAsientosDisponibles() {
         return asientosDisponibles;
     }
+/**
+     * Este metodo calcula el prefio final con la formula (precio - (precio * oferta / 100).
+     * 
 
+     * @return Este metodo devuelve el precio final de un viaje.
+     */
     public int calcularPrecioFinal() {
         return (int) (precio - (precio * oferta / 100));
     }
