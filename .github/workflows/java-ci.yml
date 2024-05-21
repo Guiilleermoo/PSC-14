@@ -18,6 +18,10 @@ jobs:
           distribution: 'temurin'
 
       
-      - name: tests for the project
-        run: mvn test
+      - name: Unitary tests for the project
+        run: mvn test -Punitary-tests
+
+      - name: performance tests for the project
+        run: mvn test -Pperformance-tests
+      
       

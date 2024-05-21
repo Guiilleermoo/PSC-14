@@ -17,7 +17,7 @@
 
 	<profiles>
 		<profile>
-			<id>integration-tests</id>
+			<id>unitary-tests</id>
 			<build>
 				<plugins>
 					<!-- Configura aquí los plugins necesarios para las pruebas de integración -->

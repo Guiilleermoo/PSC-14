@@ -34,7 +34,7 @@ Hay dos tipos de Test, por un lado, los Test unitarios y por otro lado los Test 
 
 1. Para ejecutar los tests unitarios, que han sido implementados con JUnit. Ademas hemos incluido mockito y jacoco. Esta ultima herramienta te permite visualizar la cobertura de instrucciones y ramas (El index.html que genera jacoco se encuentra en rutaDondeTengasGuardadoElProyecto\PSC-14\target\site\jacoco):
     ```bash
-    mvn test -Pintegration-tests
+    mvn test -Punitary-tests
     ```
 
 2. Para ejecutar los tests de rendimiento. Lo hemos realizado a traves de JUnitPerf. Se crea una carpeta en target llamada junitperf con un report.html donde visualizar los tests:
