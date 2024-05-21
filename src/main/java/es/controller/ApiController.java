@@ -27,6 +27,12 @@ public class ApiController {
         this.reservaRepository = reservaRepository;
     }
 
+    /**
+     * Este método se encarga de registrar los cambios realizados en la aplicación en un archivo de log.
+     * 
+     * @param mensaje El mensaje que se va a registrar en el archivo de log.
+     * @return void
+     */
     @PostMapping("/api/registrarCambios")
     public void registrarCambios(@RequestBody String mensaje) {
         String nombreArchivo = "logCambios.txt";
@@ -45,6 +51,11 @@ public class ApiController {
         }
     }
 
+    /**
+     * Este método se encarga de obtener un mapa con los viajes y el número de reservas que tiene cada uno.
+     * 
+     * @return Map<Viaje, Integer> El mapa con los viajes y el número de reservas que tiene cada uno.
+     */
     @GetMapping("/api/getMapa")
     public ResponseEntity<Map<Viaje, Integer>> getMapa() {
         try {
