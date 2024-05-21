@@ -30,12 +30,19 @@
 7. El servidor se iniciará correctamente y el `index.html` será visible en [localhost:8080/templates/index.html](http://localhost:8080/templates/index.html). A partir de este punto se podrá navegar por los distintos archivos `.html` desde el navegador.
 
 #### TESTS
-1. Para ejecutar los tests, que han sido implementados con JUnit. Ademas hemos incluido mockito y jacoco. Esta ultima herramienta te permite visualizar la cobertura de instrucciones y ramas (El index.html que genera jacoco se encuentra en rutaDondeTengasGuardadoElProyecto\PSC-14\target\site\jacoco):
+Hay dos tipos de Test, por un lado, los Test unitarios y por otro lado los Test de rendimiento.
+
+1. Para ejecutar los tests unitarios, que han sido implementados con JUnit. Ademas hemos incluido mockito y jacoco. Esta ultima herramienta te permite visualizar la cobertura de instrucciones y ramas (El index.html que genera jacoco se encuentra en rutaDondeTengasGuardadoElProyecto\PSC-14\target\site\jacoco):
     ```bash
-    mvn test
+    mvn test -Pintegration-tests
     ```
 
-2. Una vez terminado, utilizamos el comando `mvn clean` para borrar lo previamente compilado.
+2. Para ejecutar los tests de rendimiento. Lo hemos realizado a traves de JUnitPerf. Se crea una carpeta en target llamada junitperf con un report.html donde visualizar los tests:
+    ```bash
+    mvn test -Pperformance-tests
+    ```
+
+3. Una vez terminado, utilizamos el comando `mvn clean` para borrar lo previamente compilado.
     ```bash
     mvn clean
     ```
