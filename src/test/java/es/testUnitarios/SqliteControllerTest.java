@@ -408,6 +408,37 @@ public class SqliteControllerTest {
         assertEquals("Error al eliminar el cliente -> Error en el repositorio", response.getBody());
     }
 
+    @Test
+    public void testCrearCliente() {
+        // Datos de prueba
+        String jsonData = "{\"dni\": \"123456789\", \"nombre\": \"Unai\", \"gmail\": \"unaiaira@gmail.com\", \"telefono\": \"666444555\", \"residencia\": \"Deusto\", \"contrasena\": \"password\"}";
+
+        JSONObject data;
+        Cliente t = new Cliente();
+        try {
+            data = new JSONObject(jsonData);
+            t.setDni(data.getString("dni"));
+            t.setNombre(data.getString("nombre"));   
+            t.setGmail(data.getString("gmail"));
+            t.setTelefono(data.getString("telefono"));
+            t.setResidencia(data.getString("residencia"));
+            t.setPassword(data.getString("contrasena"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+       // Simular el comportamiento del repositorio
+       when(clienteRepository.save(any(Cliente.class))).thenReturn(t);
+
+       // Llamar al método del controlador
+       ResponseEntity<String> response = sqliteController.crearCliente(jsonData);
+
+       // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
+       assertEquals(HttpStatus.OK, response.getStatusCode());
+
+       // Verificar que se devuelve el mensaje esperado
+       assertEquals("cliente ha sido guardado correctamente", response.getBody());
+    }
     
 
     @Test
