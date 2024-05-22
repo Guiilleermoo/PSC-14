@@ -21,6 +21,7 @@ import es.dao.FavoritoRepository;
 import es.dao.ReservaRepository;
 import es.dao.TrabajadorRepository;
 import es.dao.ViajeRepository;
+import es.model.Cliente;
 import es.model.Trabajador;
 
 
@@ -74,9 +75,9 @@ public class RendimientoTest {
 
         // Verificar que se devuelve el mensaje esperado
         assertEquals("trabajador ha sido guardado correctamente", response.getBody());
-    }   
+    }   */
 
-   /*  @Test
+    @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)
     @JUnitPerfTestRequirement(meanLatency = 100)
     public void testCrearClienteCorrecto() {
@@ -94,7 +95,7 @@ public class RendimientoTest {
 
         // Verificar que se devuelve el mensaje esperado
         assertEquals("cliente ha sido guardado correctamente", response.getBody());
-    }*/
+    }
 
     @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)

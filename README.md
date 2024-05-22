@@ -59,3 +59,10 @@ Hay dos tipos de Test, por un lado, los Test unitarios y por otro lado los Test 
     Email: prueba@gmail.com
     Password: prueba123
     ```
+#### DOCUMENTACION DOXYGEN
+1. Asegurate de estar en el directorio de PSC-14
+2. Introduce el siguiente comando:
+    ```bash
+    doxygen Doxyfile
+    ```
+3. Se creara el fichero en la carpeta doc dentro de la carpeta target `./target/doc`
