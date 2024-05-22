@@ -3,6 +3,7 @@ package es.controller;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class ApiController {
      * @return Map<Viaje, Integer> El mapa con los viajes y el número de reservas que tiene cada uno.
      */
     @GetMapping("/api/getMapa")
-    public ResponseEntity<Map<Viaje, Integer>> getMapa() {
+    public ResponseEntity<String> getMapa() {
         try {
             Map<Viaje, Integer> mapa = new HashMap<Viaje, Integer>();
             List<Reserva> reservas = reservaRepository.findAll();
@@ -70,7 +71,15 @@ public class ApiController {
                 }
             }
 
-            return new ResponseEntity<>(mapa, HttpStatus.OK);
+            List<Map.Entry<Viaje, Integer>> listaEntradas = new ArrayList<>(mapa.entrySet());
+
+            listaEntradas.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+            for (Map.Entry<Viaje, Integer> entry : listaEntradas) {
+                System.out.println("Viaje: " + entry.getKey() + ", Cantidad de reservas: " + entry.getValue());
+            }
+
+            return new ResponseEntity<>("Mapa ordenado de los viajes más reservados por los clientes",HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener el mapa" + e.getMessage());
         }
