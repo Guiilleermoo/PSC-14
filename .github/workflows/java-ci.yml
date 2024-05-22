@@ -17,12 +17,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Prepare database for integration tests
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}        
+      - name: Prepare database for integration tests     
         run: |            
           sudo /etc/init.d/mysql start
-          mysql -u root -p       
+          mysql -uroot -proot       
           source sql/schema-BD.sql
       
       - name: Unitary tests for the project
