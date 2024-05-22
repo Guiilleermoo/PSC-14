@@ -20,8 +20,8 @@ jobs:
       - name: Prepare database for integration tests     
         run: |            
           sudo /etc/init.d/mysql start
-          mysql -uroot -proot       
-          source sql/schema-BD.sql
+          mysql -uroot -proot < sql/schema-BD.sql        
+          mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
       
       - name: Unitary tests for the project
         run: mvn test -Punitary-tests
