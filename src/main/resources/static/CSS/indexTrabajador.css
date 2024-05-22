@@ -103,6 +103,12 @@ td:last-child {
     font-size: 20px;
 
 }
+#botonModificar{
+    margin-bottom: 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 20px;
+}
 #persona {
     border-radius: 50px;
     background-color: #c9d5dc;

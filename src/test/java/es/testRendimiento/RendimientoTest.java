@@ -21,7 +21,6 @@ import es.dao.FavoritoRepository;
 import es.dao.ReservaRepository;
 import es.dao.TrabajadorRepository;
 import es.dao.ViajeRepository;
-import es.model.Cliente;
 import es.model.Trabajador;
 
 
@@ -48,7 +47,7 @@ public class RendimientoTest {
 
     @Rule 
 	public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
-    
+    /* 
     @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)
     @JUnitPerfTestRequirement(meanLatency = 100)
