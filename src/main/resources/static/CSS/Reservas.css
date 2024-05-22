@@ -19,7 +19,10 @@ body {
     padding-top: 5%;
     
 }
-
+#botonDestino{
+    margin-left: 10%;
+    padding-top: 2%;
+}
 
 
 table {

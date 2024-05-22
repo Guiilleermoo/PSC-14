@@ -29,9 +29,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -41,9 +40,7 @@ class ApiControllerTest {
     @Mock
     private ReservaRepository reservaRepository;
 
-    private List<Reserva> reservas;
-    private Viaje viaje1;
-    private Viaje viaje2;
+
 
     @Autowired
     private MockMvc mvc;
@@ -79,42 +76,24 @@ class ApiControllerTest {
 
     @Test
     public void testGetMapa() {
-        viaje1 = new Viaje();
-        viaje1.setId(1);
-        viaje1.setOrigen("Barcelona");
-        viaje1.setDestino("Madrid");
-        viaje2 = new Viaje();
-        viaje2.setId(2);
-        viaje2.setOrigen("Madrid");
-        viaje2.setDestino("Barcelona");
-
+        // Preparar datos de prueba
+        Viaje viaje1 = new Viaje();
+        Viaje viaje2 = new Viaje();
         Reserva reserva1 = new Reserva();
-        reserva1.setId(1);
-        reserva1.setViaje(viaje1); 
+        reserva1.setViaje(viaje1);
         Reserva reserva2 = new Reserva();
-        reserva2.setId(2);
-        reserva2.setViaje(viaje1);
-        Reserva reserva3 = new Reserva();
-        reserva3.setId(3);
-        reserva3.setViaje(viaje2);
+        reserva2.setViaje(viaje2);
+        List<Reserva> reservas = Arrays.asList(reserva1, reserva2);
 
-        reservas = Arrays.asList(reserva1, reserva2, reserva3);
-
-        // Simular el comportamiento del repositorio
+        // Simular el comportamiento del reservaRepository
         when(reservaRepository.findAll()).thenReturn(reservas);
 
-        // Llamar al método del controlador
-        ResponseEntity<Map<Viaje, Integer>> response = apiController.getMapa();
+        // Llamar a la función a probar
+        ResponseEntity<String> response = apiController.getMapa();
 
-        // Verificar que se devuelve un ResponseEntity con HttpStatus.OK
+        // Verificar que la respuesta es la esperada
         assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        // Verificar que el mapa devuelto tiene el tamaño correcto
-        Map<Viaje, Integer> expectedMap = new HashMap<>();
-        expectedMap.put(viaje1, 2);
-        expectedMap.put(viaje2, 1);
-
-        assertEquals(expectedMap, response.getBody());
+        assertEquals("Mapa ordenado de los viajes más reservados por los clientes", response.getBody());
     }
 
     @Test

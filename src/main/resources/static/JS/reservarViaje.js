@@ -40,7 +40,7 @@ let listarViajes = async () => {
             <i onClick="compartir(${viaje.id})"class="material-icons button check_circle">share</i>
             </td>
         </tr>
-        ` 
+        `
         contenidoTabla += contenidoFila;
     }
     document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
@@ -59,7 +59,7 @@ async function marcarFavoritos() {
     const peticionFavoritos = await fetch('http://localhost:8080/sql/buscarFavorito/' + cliente.dni, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json',   
+            'Accept': 'application/json',
         },
     });
     const favoritos = await peticionFavoritos.json();
@@ -71,39 +71,38 @@ async function marcarFavoritos() {
         }
     });
 }
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('filtrarDestino').addEventListener('click', filtrarPorDestino);
+});
 
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('filtrarFechas').addEventListener('click', filtrarPorFechas);
-    });
-
-    async function filtrarPorFechas() {
-        let fechaInicio = new Date(document.getElementById('fechaInicio').value);
-        let fechaFin = new Date(document.getElementById('fechaFin').value);
-        
-        if (isNaN(fechaInicio) || isNaN(fechaFin)) {
-            console.log('Fecha inválida');
-            return; // Salir de la función si las fechas no son válidas
-        }
+async function filtrarPorDestino() {
+    let destino = document.getElementById('destino').value;
     
-        const peticion = await fetch('http://localhost:8080/sql/viajes', {
+
+    if (destino === "") {
+        return; // Salir de la función si las fechas no son válidas
+    }
+
+    const peticion = await fetch('http://localhost:8080/sql/viajes', {
 
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-            
-        });
-        const viajes = await peticion.json();
-        
-        let viajesFiltrados = viajes.filter(viaje => {
-            let fechaViaje = new Date(viaje.fecha);
-            return fechaViaje >= fechaInicio && fechaViaje <= fechaFin;
-        });
-        console.log(viajes);
-        console.log(viajesFiltrados);
-        let contenidoTabla = "";
-        for (let viaje of viajesFiltrados) {
-            let contenidoFila = `<tr>
+
+    });
+    const viajes = await peticion.json();
+
+    let viajesFiltrados = viajes.filter(viaje => {
+        let destinoViaje = viaje.destino;
+        return destinoViaje == destino;
+    });
+    
+    console.log(viajes);
+    console.log(viajesFiltrados);
+    let contenidoTabla = "";
+    for (let viaje of viajesFiltrados) {
+        let contenidoFila = `<tr>
                 <td>${viaje.id}</td>
                 <td>${viaje.empresa}</td>
                 <td>${viaje.origen}</td>
@@ -128,22 +127,95 @@ async function marcarFavoritos() {
                 </td>
           
             </tr>
-            ` 
-            contenidoTabla += contenidoFila;
-        }
-        let tabla = document.querySelector("#tabla");
-            if (tabla) {
-                let tbody = tabla.querySelector("tbody");
-                if (!tbody) {
-                    tbody = document.createElement("tbody");
-                    tabla.appendChild(tbody);
-                }
-                tbody.outerHTML = contenidoTabla;
-            } else {
-                console.error("No se pudo encontrar la tabla con el ID 'tabla'");
-            }
+            `
+        contenidoTabla += contenidoFila;
     }
-   
+    let tabla = document.querySelector("#tabla");
+    if (tabla) {
+        let tbody = tabla.querySelector("tbody");
+        if (!tbody) {
+            tbody = document.createElement("tbody");
+            tabla.appendChild(tbody);
+        }
+        tbody.outerHTML = contenidoTabla;
+    } else {
+        console.error("No se pudo encontrar la tabla con el ID 'tabla'");
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('filtrarFechas').addEventListener('click', filtrarPorFechas);
+});
+
+async function filtrarPorFechas() {
+    let fechaInicio = new Date(document.getElementById('fechaInicio').value);
+    let fechaFin = new Date(document.getElementById('fechaFin').value);
+
+    if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+        console.log('Fecha inválida');
+        return; // Salir de la función si las fechas no son válidas
+    }
+
+    const peticion = await fetch('http://localhost:8080/sql/viajes', {
+
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+
+    });
+    const viajes = await peticion.json();
+
+    let viajesFiltrados = viajes.filter(viaje => {
+        let fechaViaje = new Date(viaje.fecha);
+        return fechaViaje >= fechaInicio && fechaViaje <= fechaFin;
+    });
+    console.log(viajes);
+    console.log(viajesFiltrados);
+    let contenidoTabla = "";
+    for (let viaje of viajesFiltrados) {
+        let contenidoFila = `<tr>
+                <td>${viaje.id}</td>
+                <td>${viaje.empresa}</td>
+                <td>${viaje.origen}</td>
+                <td>${viaje.destino}</td>
+                <td>${viaje.fecha}</td>
+                <td>${viaje.duracion}</td>
+                <td>${viaje.precio}</td>
+                <td>${viaje.asientosTotales}</td>
+                <td>${viaje.asientosDisponibles}</td>
+                <td>${viaje.oferta}</td>
+                <td>
+                <i onClick="compararViaje(${viaje.id}) "class="material-icons button search">search</i>
+                </td>
+                <td>
+                <i id="estrella-${viaje.id}" onClick="favorito(${viaje.id})"class="material-icons button star">star</i>
+                </td>
+                <td>
+                <i onClick="reservarViaje(${viaje.id})"class="material-icons button check_circle">check_circle</i>
+                </td> 
+                <td>
+                <i onClick="compartir(${viaje.id})"class="material-icons button check_circle">share</i>
+                </td>
+          
+            </tr>
+            `
+        contenidoTabla += contenidoFila;
+    }
+    let tabla = document.querySelector("#tabla");
+    if (tabla) {
+        let tbody = tabla.querySelector("tbody");
+        if (!tbody) {
+            tbody = document.createElement("tbody");
+            tabla.appendChild(tbody);
+        }
+        tbody.outerHTML = contenidoTabla;
+    } else {
+        console.error("No se pudo encontrar la tabla con el ID 'tabla'");
+    }
+}
+
 let listarViajesOrdenados2 = async () => {
 
     // Paso 1: Obtener los datos de la tabla HTML
@@ -164,7 +236,7 @@ let listarViajesOrdenados2 = async () => {
         let asientosTotales = parseInt(celdas[7].innerText);
         let asientosDisponibles = parseInt(celdas[8].innerText);
         let oferta = celdas[9].innerText;
-        datos.push({ id: id, empresa: empresa, origen: origen, destino: destino, fecha: fecha, duracion: duracion, precio: precio, asientosTotales: asientosTotales, asientosDisponibles: asientosDisponibles, oferta: oferta});
+        datos.push({ id: id, empresa: empresa, origen: origen, destino: destino, fecha: fecha, duracion: duracion, precio: precio, asientosTotales: asientosTotales, asientosDisponibles: asientosDisponibles, oferta: oferta });
     }
 
     // Paso 2: Ordenar los datos por edad
@@ -172,8 +244,8 @@ let listarViajesOrdenados2 = async () => {
 
     // Paso 3: Actualizar la tabla HTML con los datos ordenados
     let contenidoTabla = "";
-        for (let viaje of datos) {
-            let contenidoFila = `<tr>
+    for (let viaje of datos) {
+        let contenidoFila = `<tr>
                 <td>${viaje.id}</td>
                 <td>${viaje.empresa}</td>
                 <td>${viaje.origen}</td>
@@ -197,10 +269,10 @@ let listarViajesOrdenados2 = async () => {
                 <i onClick="compartir(${viaje.id})"class="material-icons button check_circle">share</i>
                 </td>
             </tr>
-            ` 
-            contenidoTabla += contenidoFila;
-        }
-        document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
+            `
+        contenidoTabla += contenidoFila;
+    }
+    document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
     marcarFavoritos();
 }
 
@@ -208,22 +280,22 @@ let idEditar;
 
 let compararViaje = async (id) => {
 
-        idEditar = id;
-    
-        const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
-    
-            method: 'GET',
-        
-            headers: {
-                'Accept': 'application/json',
-                
-            },
-        });
-        
-        const viaje = await peticion.json();
-        const params = new URLSearchParams();
-        params.append('viaje', JSON.stringify(viaje));
-        window.location.href = 'CompararViajes.html?' + params.toString(); 
+    idEditar = id;
+
+    const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
+
+        method: 'GET',
+
+        headers: {
+            'Accept': 'application/json',
+
+        },
+    });
+
+    const viaje = await peticion.json();
+    const params = new URLSearchParams();
+    params.append('viaje', JSON.stringify(viaje));
+    window.location.href = 'CompararViajes.html?' + params.toString();
 }
 
 function obtenerValorCookie(nombre) {
@@ -259,7 +331,7 @@ async function agregarAFavoritos(id) {
     const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json',   
+            'Accept': 'application/json',
         },
     });
 
@@ -269,7 +341,7 @@ async function agregarAFavoritos(id) {
     const busqueda = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json'  
+            'Accept': 'application/json'
         },
     });
 
@@ -282,7 +354,7 @@ async function agregarAFavoritos(id) {
         }
     });
 
-    if(response.ok) {
+    if (response.ok) {
         console.log("Añadido a favoritos")
     } else {
         console.error("Error al añadir a favoritos")
@@ -297,25 +369,25 @@ async function eliminarDeFavoritos(id) {
     const busqueda = await fetch('http://localhost:8080/sql/buscarCliente/' + gmail, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json'  
+            'Accept': 'application/json'
         },
     });
 
     const cliente = await busqueda.json();
-    
+
 
     const peticion = await fetch('http://localhost:8080/sql/buscarFavorito/' + cliente.dni, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json',   
+            'Accept': 'application/json',
         },
     });
 
     const favorito = await peticion.json();
     let campos = {};
 
-    for(let f of favorito) {
-        if(f.viaje.id === id && f.cliente.dni === cliente.dni) {
+    for (let f of favorito) {
+        if (f.viaje.id === id && f.cliente.dni === cliente.dni) {
             campos.id = f.id;
             const response = await fetch('http://localhost:8080/sql/eliminarFavorito', {
                 method: 'DELETE',
@@ -324,7 +396,7 @@ async function eliminarDeFavoritos(id) {
                     'Content-Type': 'application/json'
                 }
             });
-            if(response.ok) {
+            if (response.ok) {
                 console.log("Eliminado de favoritos")
             } else {
                 console.error("Error al eliminar de favoritos")
@@ -342,17 +414,17 @@ let reservarViaje = async (id) => {
     const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
 
         method: 'GET',
-     
+
         headers: {
             'Accept': 'application/json',
-            
+
         },
     });
-    
+
     const reserva = await peticion.json();
 
     document.getElementById("idViaje").value = reserva.id;
-    
+
 
     let btnModificar = document.getElementById("registrar");
 
@@ -365,10 +437,10 @@ let reservarViaje = async (id) => {
 let aplicarActualizacion = async (id) => {
 
     let campos = {};
-    
+
     campos.dniCliente = document.getElementById("dni").value;
     campos.numPlazas = document.getElementById("numPlazas").value;
-   
+
     const p = await fetch('http://localhost:8080/sql/crearReserva/' + id, {
         method: 'POST',
         body: JSON.stringify(campos),
@@ -377,6 +449,30 @@ let aplicarActualizacion = async (id) => {
         }
     });
     listarViajes();
+}
+
+let compartir = async (id) => {
+
+    const peticion = await fetch('http://localhost:8080/sql/buscarViaje/' + id, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
+
+    const viaje = await peticion.json();
+
+    var urlActual = window.location.href;
+    navigator.clipboard.writeText(urlActual)
+
+    .then(function() {
+        console.log('URL copiada al portapapeles: ' + urlActual);
+        alert('Datos del viaje:\n' + JSON.stringify(viaje) + '\n\nURL copiada al portapapeles: ' + urlActual);
+    })
+    .catch(function(err) {
+        console.error('Error al copiar la URL al portapapeles: ', err);
+        alert('Error al copiar la URL al portapapeles');
+    });
 }
 
 function mostrarFormulario() {
