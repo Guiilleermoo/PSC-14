@@ -20,7 +20,8 @@ jobs:
       - name: Prepare database for integration tests         
         run: |            
           sudo /etc/init.d/mysql start
-          mysql -u root -p        
+          mysql -u root -p
+          root        
           source sql/schema-BD.sql
       
       - name: Unitary tests for the project
