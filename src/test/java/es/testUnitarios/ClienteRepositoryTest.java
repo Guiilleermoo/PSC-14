@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@ContextConfiguration(classes = TravelAdvisorApplication.class)
 @Transactional
 public class ClienteRepositoryTest {
 

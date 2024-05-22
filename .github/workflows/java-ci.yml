@@ -17,6 +17,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Prepare database for integration tests         
+        run: |            
+          mysql -u root -p           
+          source sql/schema-BD.sql
       
       - name: Unitary tests for the project
         run: mvn test -Punitary-tests
