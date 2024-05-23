@@ -48,3 +48,18 @@ function redirigirAñadirViajes() {
 function redirigirModificarViajes() {
     window.location.href = "../templates/EditarViajes.html";
 }
+function redirigirAnalisisViajes() {
+    alert("Has imprimido los viajes con mas reservas");
+    
+}
+let imprimir = async () => {
+
+    const peticion = await fetch('http://localhost:8080/api/getMapa', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
+
+}
+document.getElementById('botonModificar').addEventListener('click', imprimir);

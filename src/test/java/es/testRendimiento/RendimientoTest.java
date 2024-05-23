@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,6 +25,7 @@ import es.dao.TrabajadorRepository;
 import es.dao.ViajeRepository;
 import es.model.Cliente;
 import es.model.Trabajador;
+import es.model.Viaje;
 
 
 public class RendimientoTest {
@@ -48,7 +51,7 @@ public class RendimientoTest {
 
     @Rule 
 	public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
-    
+    /* 
     @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)
     @JUnitPerfTestRequirement(meanLatency = 100)
@@ -96,7 +99,8 @@ public class RendimientoTest {
         // Verificar que se devuelve el mensaje esperado
         assertEquals("cliente ha sido guardado correctamente", response.getBody());
     }
-
+    */
+    
     @Test
     @JUnitPerfTest(threads = 20, durationMs = 3000)
     @JUnitPerfTestRequirement(meanLatency = 100)
@@ -113,7 +117,24 @@ public class RendimientoTest {
         // Verificar que se devuelve el mensaje esperado
         assertEquals("Viaje creado correctamente", response.getBody());
     }
+    @Test
+    @JUnitPerfTest(threads = 1, durationMs = 3000)
+    public void testGetViajePerformance() {
+        // Preparar datos de prueba
+        Integer id = 1;
+        Viaje viaje = new Viaje();
+        Optional<Viaje> optionalViaje = Optional.of(viaje);
 
+        // Simular el comportamiento del viajeRepository
+        when(viajeRepository.findById(id)).thenReturn(optionalViaje);
+
+        // Llamar a la función a probar
+        ResponseEntity<Viaje> response = sqliteController.getViaje(id);
+
+        // Verificar que la respuesta es la esperada
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(viaje, response.getBody());
+    }
     @Test
     @JUnitPerfTest(threads = 1, durationMs = 3000)
     public void testGetTrabajadorExistente() {

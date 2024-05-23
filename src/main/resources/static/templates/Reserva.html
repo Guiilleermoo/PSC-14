@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,10 +14,39 @@
     
   </head>
   <body>
+    <div class="row" id="botonFiltro">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Desde: </h5>
+            </div>
+            <div class="col-md-8">
+                <h5>Hasta: </h5>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <input class="form-control" type="date" id="fechaInicio" placeholder="Fecha de inicio" required>
+        </div>
+       
+        <div class="col-md-4">
+            <input class="form-control" type="date" id="fechaFin" placeholder="Fecha de fin" required>
+        </div>
+        <div class="col-md-4">
+            <button id="filtrarFechas" class="btn btn-primary">Filtrar por fechas</button>
+        </div>
+    </div>
+    <div class="row" id="botonDestino">
+        <div class="col-md-4">
+            <input class="form-control" type="text" id="destino" placeholder="Destino" required>
+        </div>
+        <div class="col-md-4">
+            <button id="filtrarDestino" class="btn btn-primary">Filtrar destino</button>
+        </div>
+    </div>
     <table id="tabla">
       <thead>
         <tr class="tituloTabla">
-          <th colspan="13">Viajes disponibles</th>
+          <th colspan="14">Viajes disponibles</th>
         </tr>
         <tr class="indice">
           <th class="numero">Id</th>
@@ -33,11 +62,15 @@
           <th></th>
           <th></th>
           <th></th>
+          <th></th>
+        
         </tr>
       </thead>
       <tbody></tbody>
+      <html lang="en">
+
     </table>
-    
+  
     <div class="form-body" id="formulario">
         <div class="row">
             <div class="form-holder">
@@ -72,6 +105,7 @@
                             <div class="form-button mt-3">
                                 <button id="registrar" type="submit" class="btn btn-primary">Modificar</button>
                             </div>
+                          
                         </form>
                     </div>
                 </div>

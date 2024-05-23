@@ -17,7 +17,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Prepare database for integration tests     
+        run: |            
+          sudo /etc/init.d/mysql start
+          mysql -uroot -proot < sql/schema-BD.sql 
       
-      - name: tests for the project
-        run: mvn test
+      - name: Unitary tests for the project
+        run: mvn test -Punitary-tests
+
+      - name: performance tests for the project
+        run: mvn test -Pperformance-tests
+      
       
